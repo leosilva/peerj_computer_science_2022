@@ -15,8 +15,8 @@ from settings import BROWSER_EXE, FIREFOX_BINARY, GECKODRIVER, PROFILE
 
 class CollectPosts(object):
     """Collector of recent FaceBook posts.
-           Note: We bypass the FaceBook-Graph-API by using a 
-           selenium FireFox instance! 
+           Note: We bypass the FaceBook-Graph-API by using a
+           selenium FireFox instance!
            This is against the FB guide lines and thus not allowed.
 
            USE THIS FOR EDUCATIONAL PURPOSES ONLY. DO NOT ACTUALLY RUN IT.
@@ -32,7 +32,6 @@ class CollectPosts(object):
                                          firefox_binary=FIREFOX_BINARY,
                                          firefox_profile=PROFILE,)
         utils.create_csv(self.out_file)
-
 
     def collect_page(self, page):
         # navigate to page
@@ -51,13 +50,28 @@ class CollectPosts(object):
             time.sleep(self.delay)
 
         # Once the full page is loaded, we can start scraping
-        links = self.browser.find_elements_by_link_text("See more")
-        for link in links:
-            link.click()
-        posts = self.browser.find_elements_by_class_name(
-            "userContentWrapper")
-        poster_names = self.browser.find_elements_by_xpath(
-            "//a[@data-hovercard-referer]")
+        # links = self.browser.find_elements_by_link_text("Ver mais")
+        # links = self.browser.find_elements_by_xpath("//div[contains(string(), 'Ver mais')]")
+        # for link in links:
+            # WebDriverWait(self.browser, 20).until(EC.element_to_be_clickable("//div[contains(string(), 'Ver mais')]")).click()
+            # link.click()
+        # posts = self.browser.find_elements_by_class_name("userContentWrapper")
+        posts = self.browser.find_elements_by_xpath(
+            "//div[@data-ad-preview]")
+        for count, post in enumerate(posts):
+            # print(count)
+            # print(post)
+            # print(post.find_elements(By.CSS_SELECTOR, "a[role]"))
+            # print(post.text)
+            elemens_a = post.find_elements(By.CSS_SELECTOR, "a[role=link]")
+            for element in elemens_a:
+                print(element.text)
+            poster_names = post.find_elements_by_xpath("//a[@role]")
+            for p in poster_names:
+                # el = p.find_element_by_css_selector("strong > span")
+                print(p)
+        # poster_names = self.browser.find_elements_by_xpath("//a[@data-hovercard-referer]")
+        # print(poster_names)
 
         print(posts)
         for count, post in enumerate(posts):
