@@ -19,7 +19,7 @@ class CollectPosts(object):
            selenium FireFox instance!
            This is against the FB guide lines and thus not allowed.
 
-           USE THIS FOR EDUCATIONAL PURPOSES ONLY. DO NOT ACTAULLY RUN IT.
+           USE THIS FOR EDUCATIONAL PURPOSES ONLY. DO NOT ACTUALLY RUN IT.
     """
 
     def __init__(self, ids=["oxfess"], file="posts.csv", depth=5, delay=2):
@@ -73,6 +73,7 @@ class CollectPosts(object):
         # poster_names = self.browser.find_elements_by_xpath("//a[@data-hovercard-referer]")
         # print(poster_names)
 
+        print(posts)
         for count, post in enumerate(posts):
             # Creating first CSV row entry with the poster name (eg. "Donald Trump")
             analysis = [poster_names[count].text]
@@ -88,6 +89,7 @@ class CollectPosts(object):
             analysis.append(status)
 
             # Write row to csv
+            print(analysis)
             utils.write_to_csv(self.out_file, analysis)
 
     def collect_groups(self, group):
@@ -130,6 +132,7 @@ class CollectPosts(object):
             analysis.append(status)
 
             # Write row to csv
+            print(analysis)
             utils.write_to_csv(self.out_file, analysis)
 
     def collect(self, typ):
