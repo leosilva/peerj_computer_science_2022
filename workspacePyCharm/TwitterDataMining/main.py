@@ -5,11 +5,14 @@ import TwitterDataCollection.TwitterScraper as scraper
 import database.MySQLConnect as db
 from datetime import datetime
 import argparse
+import json
 
 
 def verify_necessity_more_tweets(screen_name, year, month, day):
     last_date = db.get_last_date(screen_name)
     base_date = datetime(year, month, day)
+    print(f"last date: {last_date}")
+    print(f"base date: {base_date}")
     if last_date > base_date:
         return True
     else:
@@ -37,14 +40,32 @@ def prepare_scrapped_tweets_to_insert(tweets):
     return tweets_to_insert
 
 
+def remove_tweets_containing_images(tweets):
+    for t in tweets:
+        # images are in "entities" key
+        entities = t._json["entities"]
+        if "media" in entities:
+            # remove tweets that has any media (gif, video or photo)
+            tweets.remove(t)
+    return tweets
+
+
 def fetch_tweets_by_screen_name(screen_name, since_date):
     alltweets = tdc.get_all_tweets(screen_name)
+    print("tweets from api...")
+    print(len(alltweets))
+    alltweets = remove_tweets_containing_images(alltweets)
+    print(len(alltweets))
     db.store_tweets([tweet._json for tweet in alltweets])
     is_need_more_tweets = verify_necessity_more_tweets(screen_name, int(since_date.year), int(since_date.month), int(since_date.day))
     if is_need_more_tweets:
         print("scrapping more tweets...")
         tweets = scrap_tweets(screen_name, since_date)
         tweets_to_insert = prepare_scrapped_tweets_to_insert(tweets)
+        print("tweets from scraper...")
+        print(len(tweets_to_insert))
+        tweets_to_insert = remove_tweets_containing_images(tweets_to_insert)
+        print(len(tweets_to_insert))
         db.store_tweets(tweets_to_insert)
 
 

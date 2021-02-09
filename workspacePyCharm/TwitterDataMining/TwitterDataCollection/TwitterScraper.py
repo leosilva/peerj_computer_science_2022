@@ -31,7 +31,8 @@ METADATA_LIST = [  # note: "id" is automatically included (hash key)
     "favorite_count",
     "retweet_count",
     "user",
-    "lang"
+    "lang",
+    "entities"
 ]
 
 # Scraping Variables
