@@ -40,10 +40,15 @@ def prepare_scrapped_tweets_to_insert(tweets):
     return tweets_to_insert
 
 
-def remove_tweets_containing_images(tweets):
+def remove_tweets_containing_media(tweets):
     for t in tweets:
         # images are in "entities" key
-        entities = t._json["entities"]
+        # if type is dict it came from scraper
+        if type(t) is dict:
+            entities = t["entities"]
+        # if not, it came from api
+        else:
+            entities = t._json["entities"]
         if "media" in entities:
             # remove tweets that has any media (gif, video or photo)
             tweets.remove(t)
@@ -54,7 +59,7 @@ def fetch_tweets_by_screen_name(screen_name, since_date):
     alltweets = tdc.get_all_tweets(screen_name)
     print("tweets from api...")
     print(len(alltweets))
-    alltweets = remove_tweets_containing_images(alltweets)
+    # alltweets = remove_tweets_containing_media(alltweets)
     print(len(alltweets))
     db.store_tweets([tweet._json for tweet in alltweets])
     is_need_more_tweets = verify_necessity_more_tweets(screen_name, int(since_date.year), int(since_date.month), int(since_date.day))
@@ -64,7 +69,8 @@ def fetch_tweets_by_screen_name(screen_name, since_date):
         tweets_to_insert = prepare_scrapped_tweets_to_insert(tweets)
         print("tweets from scraper...")
         print(len(tweets_to_insert))
-        tweets_to_insert = remove_tweets_containing_images(tweets_to_insert)
+        # tweets_to_insert = remove_tweets_containing_media(tweets_to_insert)
+        print("tweets from scraper after removing media...")
         print(len(tweets_to_insert))
         db.store_tweets(tweets_to_insert)
 
