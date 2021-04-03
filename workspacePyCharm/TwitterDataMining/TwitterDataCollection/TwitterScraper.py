@@ -177,7 +177,7 @@ class Scraper:
             """
             return set(findall(f'(?<="/{self.handle}/status/)[0-9]+', driver.page_source, flags=IGNORECASE))
 
-        with init_chromedriver(debug=False) as driver:  # options are Chrome(), Firefox(), Safari()
+        with init_chromedriver(debug=True) as driver:  # options are Chrome(), Firefox(), Safari()
             days = (end - start).days + 1
 
             # scrape tweets using a sliding window
@@ -264,13 +264,21 @@ def pprint(*arguments):  # output formatting
     print(bw("["), *arguments, bw("]"))
 
 
-def init_chromedriver(debug=False):
+def init_chromedriver(debug=True):
     options = webdriver.ChromeOptions()
     if not debug:
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument("--disable-setuid-sandbox")
     return webdriver.Chrome(options=options)
+
+def init_firefoxdriver(debug=True):
+    options = webdriver.FirefoxOptions()
+    if not debug:
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument("--disable-setuid-sandbox")
+    return webdriver.Firefox(options=options)
 
 
 if __name__ == "__main__":

@@ -31,7 +31,8 @@ METADATA_LIST = [  # note: "id" is automatically included (hash key)
     "favorite_count",
     "retweet_count",
     "user",
-    "lang"
+    "lang",
+    "entities"
 ]
 
 # Scraping Variables
@@ -57,7 +58,7 @@ class Scraper:
     def __init__(self, handle):
         self.api = self.__authorize()
         self.handle = handle.lower()
-        self.outfile = self.handle + ".json"
+        self.outfile = "json/" + self.handle + ".json"
         self.new_tweets = set()  # ids
         self.tweets = self.__retrieve_existing()  # actual tweets
 
@@ -176,7 +177,7 @@ class Scraper:
             """
             return set(findall(f'(?<="/{self.handle}/status/)[0-9]+', driver.page_source, flags=IGNORECASE))
 
-        with init_chromedriver(debug=False) as driver:  # options are Chrome(), Firefox(), Safari()
+        with init_chromedriver(debug=True) as driver:  # options are Chrome(), Firefox(), Safari()
             days = (end - start).days + 1
 
             # scrape tweets using a sliding window
