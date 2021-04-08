@@ -190,3 +190,16 @@ def get_existings_tweets_by_ids_twitter(ids_twitter):
     ids = cursor.fetchmany()
 
     return ids
+
+def get_all_tweets():
+    connection, cursor = __get_connection()
+
+    cursor.execute("SELECT * FROM User u")
+    allusers = cursor.fetchall()
+    tweets = {}
+
+    for user in allusers:
+        cursor.execute("SELECT * FROM Tweet t WHERE t.id_user = '{}'".format(user[0]))
+        tweets[user[0]] = cursor.fetchall()
+
+    return (allusers, tweets)
