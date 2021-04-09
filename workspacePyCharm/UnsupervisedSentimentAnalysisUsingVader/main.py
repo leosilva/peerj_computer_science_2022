@@ -37,6 +37,8 @@ def clean_tweets(tweets):
 
 
 def perform_vader_analysis(i):
+    print(df['id'][i])
+    print(df['text'][i])
     vader_analysis = {"vader": analyzer.polarity_scores(df['text'][i])}
     compound = analyzer.polarity_scores(df['text'][i])["compound"]
     pos = analyzer.polarity_scores(df['text'][i])["pos"]
@@ -52,8 +54,6 @@ def perform_vader_analysis(i):
 
     # compound_list.append(compound)
 
-
-
     # db.update_scores_tweet(df['id'][i], str(vader_analysis))
 
 
@@ -63,7 +63,7 @@ tweets = db.get_all_tweets()
 
 #convert array to dataframe
 df = pd.DataFrame.from_dict(tweets)
-df.columns = ["id", "id_str_twitter", "text", "created_at", "favorite_count", "retweer_count", "lang", "id_user", "sentiment_analysis", "screen_name"]
+df.columns = ["id", "id_str_twitter", "text", "created_at", "favorite_count", "retweet_count", "lang", "id_user", "sentiment_analysis", "screen_name"]
 df['text'] = clean_tweets(df['text'])
 
 scores = []
@@ -77,7 +77,7 @@ neutral_list = []
 print("analyzing tweets with vader...")
 try:
     for i in range(df['text'].shape[0]):
-        perform_vader_analysis(i)
+        # perform_vader_analysis(i)
         json_str = df['sentiment_analysis'][i]
         if json_str:
             json_str = json_str.replace("\'", "\"")
@@ -97,5 +97,5 @@ print("finished")
 sentiments_score = pd.DataFrame.from_dict(scores)
 df = df.join(sentiments_score)
 print(f"Positive: {len(positive_list)}")
-print(f"Negative: {len(neutral_list)}")
-print(f"Neutral: {len(negative_list)}")
+print(f"Negative: {len(negative_list)}")
+print(f"Neutral: {len(neutral_list)}")

@@ -32,6 +32,8 @@ METADATA_LIST = [  # note: "id" is automatically included (hash key)
     "retweet_count",
     "user",
     "lang",
+    "truncated",
+    "retweeted",
     "entities"
 ]
 
@@ -167,7 +169,7 @@ class Scraper:
 
         def form_url(start, end):
             base_url = "https://twitter.com/search"
-            query = "?f=tweets&vertical=default&q=from%3A{}%20since%3A{}%20until%3A{}include%3Aretweets&src=typd"
+            query = "?f=tweets&vertical=default&q=from%3A{}%20since%3A{}%20until%3A{}%20include%3Aretweets&src=typd"
             return base_url + query.format(self.handle, start, end)
 
         def parse_tweet_ids():

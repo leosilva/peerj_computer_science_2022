@@ -2,13 +2,24 @@ import json
 import tweepy
 import csv
 from TwitterDataCollection.api_key import key
+import re
+
+# Twitter only allows access to a users most recent 3240 tweets with this method
+
+# authorize twitter, initialize tweepy
+auth = tweepy.AppAuthHandler(key["consumer_key"], key['consumer_secret'])
+api = tweepy.API(auth)
+
+def get_tweet_content(tweet):
+    status = api.get_status(tweet['id'], tweet_mode="extended", wait_on_rate_limit=True)
+    try:
+        text = re.search(r"RT @[\w]*:", tweet['text']).group(0) + " "
+        tweet['text'] = text + status.retweeted_status.full_text
+    except AttributeError:  # Not a Retweet
+        tweet['text'] = status.full_text
+    return tweet
 
 def get_all_tweets(screen_name):
-    # Twitter only allows access to a users most recent 3240 tweets with this method
-
-    # authorize twitter, initialize tweepy
-    auth = tweepy.AppAuthHandler(key["consumer_key"], key['consumer_secret'])
-    api = tweepy.API(auth)
 
     # initialize a list to hold all the tweepy Tweets
     alltweets = []
