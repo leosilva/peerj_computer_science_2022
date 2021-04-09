@@ -33,8 +33,9 @@ def update_tweet_text(tweet):
         connection.close()
 
     try:
-        query = "UPDATE Tweet t SET t.text = '{}' WHERE id = {}".format(tweet['text'], tweet['id'])
+        query = "UPDATE Tweet t SET t.text = '{}', t.text_updated = {} WHERE id = {}".format(tweet['text'], 1, tweet['id'])
         cursor.execute(query)
+        connection.commit()
     except mysql.connector.Error as err:
         print(err)
         print("Error Code:", err.errno)
