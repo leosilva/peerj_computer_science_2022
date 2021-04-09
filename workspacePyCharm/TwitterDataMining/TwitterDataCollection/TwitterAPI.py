@@ -11,7 +11,7 @@ auth = tweepy.AppAuthHandler(key["consumer_key"], key['consumer_secret'])
 api = tweepy.API(auth)
 
 def get_tweet_content(tweet):
-    status = api.get_status(tweet['id'], tweet_mode="extended", wait_on_rate_limit=True)
+    status = api.get_status(tweet['id_str_twitter'], tweet_mode="extended", wait_on_rate_limit=True)
     try:
         text = re.search(r"RT @[\w]*:", tweet['text']).group(0) + " "
         tweet['text'] = text + status.retweeted_status.full_text

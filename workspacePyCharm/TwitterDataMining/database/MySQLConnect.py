@@ -19,6 +19,32 @@ def get_last_date(screen_name):
     return last_date[0]
 
 
+def update_tweet_text(tweet):
+    # print("init of update tweet")
+    connection, cursor = __get_connection()
+    try:
+        cursor.execute("SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED")
+    except mysql.connector.Error as err:
+        print(err)
+        print("Error Code:", err.errno)
+        print("SQLSTATE", err.sqlstate)
+        print("Message", err.msg)
+        cursor.close()
+        connection.close()
+
+    try:
+        query = "UPDATE Tweet t SET t.text = '{}' WHERE id = {}".format(tweet['text'], tweet['id'])
+        cursor.execute(query)
+    except mysql.connector.Error as err:
+        print(err)
+        print("Error Code:", err.errno)
+        print("SQLSTATE", err.sqlstate)
+        print("Message", err.msg)
+        print("Query", query)
+        cursor.close()
+        connection.close()
+
+
 def store_tweets_for_existing_user(alltweets):
     print("init of store tweets existing user function")
     connection, cursor = __get_connection()

@@ -27,7 +27,7 @@ def prepare_scrapped_tweets_to_insert(tweets):
             tweet = tweets_to_insert[t]
         else:
             tweet = t
-        # tweet["text"] = tweet["full_text"]
+        tweet["text"] = tweet["full_text"]
         new_tweets_to_insert.append(tweet)
     return new_tweets_to_insert
 
@@ -48,7 +48,7 @@ def remove_tweets_containing_media(tweets):
 
 
 if __name__ == '__main__':
-    with open("json/rponte.json", "r") as read_file:
+    with open("json/rebelatto.json", "r") as read_file:
         data = json.load(read_file)
         tweets_to_insert = prepare_scrapped_tweets_to_insert(data)
         tweets_to_insert = remove_tweets_containing_media(tweets_to_insert)

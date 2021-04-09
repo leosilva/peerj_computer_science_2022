@@ -64,8 +64,8 @@ def fetch_tweets_by_screen_name(screen_name, since_date, until, isFromApi):
         print("fetching tweets from api...")
         alltweets = tdc.get_all_tweets(screen_name)
         alltweets = remove_tweets_containing_media(alltweets)
-        for a in alltweets:
-            a._json = tdc.get_tweet_content(a._json)
+        # for a in alltweets:
+        #     a._json = tdc.get_tweet_content(a._json)
         db.store_tweets([tweet._json for tweet in alltweets])
         # is_need_more_tweets = verify_necessity_more_tweets(screen_name, int(since_date.year), int(since_date.month), int(since_date.day))
         # is_need_more_tweets = True
