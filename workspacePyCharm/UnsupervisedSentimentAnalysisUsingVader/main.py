@@ -52,7 +52,7 @@ def perform_vader_analysis(i):
 
     # compound_list.append(compound)
 
-    db.update_scores_tweet(df['id'][i], str(vader_analysis))
+    # db.update_scores_tweet(df['id'][i], str(vader_analysis))
 
 
 analyzer = SentimentIntensityAnalyzer()
@@ -76,7 +76,7 @@ neutral_list = []
 print("analyzing tweets with vader...")
 try:
     for i in range(df['text'].shape[0]):
-        # perform_vader_analysis(i)
+        perform_vader_analysis(i)
         json_str = df['sentiment_analysis'][i]
         if json_str:
             json_str = json_str.replace("\'", "\"")
