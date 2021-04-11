@@ -31,7 +31,7 @@ def clean_tweets(tweets):
     tweets = np.vectorize(remove_pattern)(tweets, "https?://[A-Za-z0-9./]*")
 
     # remove special characters, numbers, punctuations (except for #)
-    # tweets = np.core.defchararray.replace(tweets, "[^a-zA-Z]", " ")
+    tweets = np.core.defchararray.replace(tweets, "[^a-zA-Z]", " ")
 
     return tweets
 
