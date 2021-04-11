@@ -15,9 +15,8 @@ def get_all_tweets():
     return tweets
 
 
-def update_scores_tweet(id, score):
+def update_scores_tweet(id, score, polarity):
     connection, cursor = __get_connection()
-    sql = "UPDATE Tweet t SET t.sentiment_analysis = %s WHERE t.id = %s"
-    val = (score, int(id))
-    cursor.execute(sql, val)
+    sql = "UPDATE Tweet t SET t.vader_sentiment_analysis_score = {}, t.vader_sentiment_analysis_polarity = '{}' WHERE t.id = {}".format(score, polarity, id)
+    cursor.execute(sql)
     connection.commit()
