@@ -1,3 +1,5 @@
 mysql-connector-python~=8.0.23
 numpy~=1.20.1
 pandas~=1.2.3
+nltk~=3.6.1
+spacy~=3.0.5

@@ -4,15 +4,17 @@
 import pandas as pd
 import database.MySQLConnect as db
 import utils as ut
-import vader_analysis as va
 import argparse
+import numpy as np
+
+import vader_analysis as va
+import oplexicon_analysis as op
 
 
-tweets = db.get_all_tweets()
 analysis_results_for_summary = []
 
 
-def vader_analysis():
+def vader_analysis(tweets):
     #convert array to dataframe
     df = pd.DataFrame.from_dict(tweets)
     del df[9]
@@ -33,9 +35,37 @@ def vader_analysis():
         elif compound < 0.0:
             polarity = 'neg'
 
-        db.update_scores_tweet(df['id'][i], compound, polarity)
+        db.update_scores_tweet(df['id'][i], compound, polarity, 'vader')
 
     va.print_summary_analysis(analysis_results_for_summary)
+    print("finished")
+
+
+def oplexicon_analysis(tweets):
+    print("analyzing tweets with oplexicon...")
+
+    for t in tweets:
+        tweet = t[2]
+        tweet = ut.clean_tweets(tweet)
+        tweet = np.array2string(tweet)
+        tweet = op.remove_stop_words(tweet)
+        tweet = op.remove_repeated_letters(tweet)
+        # tweet = op.stemming(tweet)
+        oplexicon_analysis = op.score_sentimento(tweet)
+        oplexicon_analysis = op.normalize(oplexicon_analysis)
+        analysis_results_for_summary.append(oplexicon_analysis)
+
+        polarity = ''
+        if oplexicon_analysis == 0.0:
+            polarity = 'neu'
+        elif oplexicon_analysis > 0.0:
+            polarity = 'pos'
+        elif oplexicon_analysis < 0.0:
+            polarity = 'neg'
+
+        db.update_scores_tweet(t[0], oplexicon_analysis, polarity, 'oplexicon')
+
+    op.print_summary_analysis(analysis_results_for_summary)
     print("finished")
 
 
@@ -43,5 +73,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog="main.py", usage="python3 %(prog)s [options]")
     parser.add_argument("-alg", "--algorithm", required=True, choices='vader, oplexicon')
     args = parser.parse_args()
+
+    tweets = db.get_all_tweets()
     if args.algorithm == 'vader':
-        vader_analysis()
+        vader_analysis(tweets)
+    elif args.algorithm == 'oplexicon':
+        oplexicon_analysis(tweets)
