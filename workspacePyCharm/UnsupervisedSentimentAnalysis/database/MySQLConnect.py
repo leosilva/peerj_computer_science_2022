@@ -1,4 +1,5 @@
 import mysql.connector
+import constant
 
 
 def __get_connection():
@@ -19,10 +20,13 @@ def update_scores_tweet(id, score, polarity, algorithm):
     connection, cursor = __get_connection()
     sql = ""
 
-    if algorithm == 'vader':
+    if algorithm == constant.VADER_ALGORITHM:
         sql = "UPDATE Tweet t SET t.vader_sentiment_analysis_score = {}, t.vader_sentiment_analysis_polarity = '{}' WHERE t.id = {}".format(score, polarity, id)
-    elif algorithm == 'oplexicon':
+    elif algorithm == constant.OPLEXICON_ALGORITHM:
         sql = "UPDATE Tweet t SET t.oplexicon_sentiment_analysis_score = {}, t.oplexicon_sentiment_analysis_polarity = '{}' WHERE t.id = {}".format(
+            score, polarity, id)
+    elif algorithm == constant.SENTISTRENGTH_ALGORITHM:
+        sql = "UPDATE Tweet t SET t.sentistrength_sentiment_analysis_score = {}, t.sentistrength_sentiment_analysis_polarity = '{}' WHERE t.id = {}".format(
             score, polarity, id)
     cursor.execute(sql)
     connection.commit()
