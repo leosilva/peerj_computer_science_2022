@@ -58,6 +58,10 @@ def print_summary_analysis(analysis_results_for_summary):
     print('Positivos: {}'.format(len(pos_scores)))
     print('Negativos: {}'.format(len(neg_scores)))
     print('Neutros: {}'.format(len(neu_scores)))
+    for p in pos_scores:
+        if p >= 1:
+            print(p)
+
 
 
 def stemming(tweet_text):

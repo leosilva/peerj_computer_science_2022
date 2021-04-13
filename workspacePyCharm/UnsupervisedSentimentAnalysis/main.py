@@ -9,6 +9,7 @@ import vader_analysis as va
 import oplexicon_analysis as op
 import sentistrength_analysis as sa
 import sentilexpt_analysis as sl
+import emoticon_analysis as ea
 
 
 analysis_results_for_summary = []
@@ -26,8 +27,6 @@ def vader_analysis(tweets, is_no_storage = False):
     df.columns = ["id", "id_str_twitter", "text"]
     df['text'] = ut.clean_tweets(df['text'])
 
-    print("analyzing tweets with vader...")
-
     for i in range(df['text'].shape[0]):
         analysis_result = va.perform_vader_analysis(df['text'][i])
         analysis_results_for_summary.append(analysis_result)
@@ -44,15 +43,12 @@ def vader_analysis(tweets, is_no_storage = False):
             db.update_scores_tweet(df['id'][i], compound, polarity, constant.VADER_ALGORITHM)
 
     va.print_summary_analysis(analysis_results_for_summary)
-    print("finished")
 
 
 def oplexicon_analysis(tweets, is_no_storage = False):
     """Function that runs and stores tweets sentiment analysis using OPLEXICON lexicon"""
 
     op.create_dictionary()
-
-    print("analyzing tweets with oplexicon...")
 
     for t in tweets:
         tweet = t[2]
@@ -62,7 +58,11 @@ def oplexicon_analysis(tweets, is_no_storage = False):
         tweet = op.remove_repeated_letters(tweet)
         # tweet = op.stemming(tweet)
         oplexicon_analysis = op.sentiment_score(tweet)
+        emoticon_analysis = ea.emoji_score(tweet)
         oplexicon_analysis = ut.normalize(oplexicon_analysis)
+        oplexicon_analysis = oplexicon_analysis + emoticon_analysis
+        if oplexicon_analysis > 1:
+            oplexicon_analysis = 1
         analysis_results_for_summary.append(oplexicon_analysis)
 
         polarity = ''
@@ -77,13 +77,10 @@ def oplexicon_analysis(tweets, is_no_storage = False):
             db.update_scores_tweet(t[0], oplexicon_analysis, polarity, constant.OPLEXICON_ALGORITHM)
 
     ut.print_summary_analysis(analysis_results_for_summary)
-    print("finished")
 
 
 def sentistrength_analysis(tweets, is_no_storage = False):
     """Function that runs and stores tweets sentiment analysis using SENTISTRENGTH lexicon"""
-
-    print("analyzing tweets with sentistrength...")
 
     for t in tweets:
         tweet = t[2]
@@ -93,7 +90,11 @@ def sentistrength_analysis(tweets, is_no_storage = False):
         tweet = ut.remove_repeated_letters(tweet)
         # tweet = op.stemming(tweet)
         sentistrenth_analysis = sa.perform_sentistrength_analysis(tweet)
+        emoticon_analysis = ea.emoji_score(tweet)
         sentistrenth_analysis = ut.normalize(sentistrenth_analysis)
+        sentistrenth_analysis = sentistrenth_analysis + emoticon_analysis
+        if sentistrenth_analysis > 1:
+            sentistrenth_analysis = 1
         analysis_results_for_summary.append(sentistrenth_analysis)
 
         polarity = ''
@@ -108,15 +109,12 @@ def sentistrength_analysis(tweets, is_no_storage = False):
             db.update_scores_tweet(t[0], sentistrenth_analysis, polarity, constant.SENTISTRENGTH_ALGORITHM)
 
     ut.print_summary_analysis(analysis_results_for_summary)
-    print("finished")
 
 
 def sentilexpt_analysis(tweets, is_no_storage = False):
     """Function that runs and stores tweets sentiment analysis using SENTILEX_PT lexicon"""
 
     sl.create_dictionaries()
-
-    print("analyzing tweets with sentilex_pt...")
 
     for t in tweets:
         tweet = t[2]
@@ -126,7 +124,11 @@ def sentilexpt_analysis(tweets, is_no_storage = False):
         tweet = sl.remove_repeated_letters(tweet)
         # tweet = op.stemming(tweet)
         sentilexpt_analysis = sl.sentiment_score(tweet)
+        emoticon_analysis = ea.emoji_score(tweet)
         sentilexpt_analysis = ut.normalize(sentilexpt_analysis)
+        sentilexpt_analysis = sentilexpt_analysis + emoticon_analysis
+        if sentilexpt_analysis > 1:
+            sentilexpt_analysis = 1
         analysis_results_for_summary.append(sentilexpt_analysis)
 
         polarity = ''
@@ -141,7 +143,6 @@ def sentilexpt_analysis(tweets, is_no_storage = False):
             db.update_scores_tweet(t[0], sentilexpt_analysis, polarity, constant.SENTILEXPT_ALGORITHM)
 
     ut.print_summary_analysis(analysis_results_for_summary)
-    print("finished")
 
 
 if __name__ == '__main__':
@@ -154,7 +155,14 @@ if __name__ == '__main__':
     args = parser.parse_args()
     is_no_storage = args.nostorage
 
+    print("starting analysis...")
+    print("----------")
+    print("algorithm: {}".format(args.algorithm))
+    print("is no storage? {}".format(is_no_storage))
+    print("----------")
+
     tweets = db.get_all_tweets()
+    print("analyzing tweets...")
     if args.algorithm == constant.VADER_ALGORITHM:
         vader_analysis(tweets, is_no_storage)
     elif args.algorithm == constant.OPLEXICON_ALGORITHM:
@@ -163,3 +171,4 @@ if __name__ == '__main__':
         sentistrength_analysis(tweets, is_no_storage)
     elif args.algorithm == constant.SENTILEXPT_ALGORITHM:
         sentilexpt_analysis(tweets, is_no_storage)
+    print("finished")

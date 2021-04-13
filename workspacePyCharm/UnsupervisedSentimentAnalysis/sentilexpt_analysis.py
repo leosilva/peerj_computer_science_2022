@@ -2,6 +2,8 @@ import re
 from spacy.lang.pt import Portuguese
 from nltk import word_tokenize
 from nltk.util import ngrams
+# import nltk
+# nltk.download('punkt')
 
 
 dic_palavra_polaridade = {}
