@@ -28,5 +28,9 @@ def update_scores_tweet(id, score, polarity, algorithm):
     elif algorithm == constant.SENTISTRENGTH_ALGORITHM:
         sql = "UPDATE Tweet t SET t.sentistrength_sentiment_analysis_score = {}, t.sentistrength_sentiment_analysis_polarity = '{}' WHERE t.id = {}".format(
             score, polarity, id)
+    elif algorithm == constant.SENTILEXPT_ALGORITHM:
+        sql = "UPDATE Tweet t SET t.sentilexpt_sentiment_analysis_score = {}, t.sentilexpt_sentiment_analysis_polarity = '{}' WHERE t.id = {}".format(
+            score, polarity, id)
+
     cursor.execute(sql)
     connection.commit()

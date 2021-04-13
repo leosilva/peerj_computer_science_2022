@@ -6,15 +6,17 @@ dic_palavra_polaridade = {}
 oplexicon = open('oplexicon_v3.0/lexico_v3.0.txt', 'r')
 nlp = Portuguese()
 
+def create_dictionary():
+    print("creating dictionary...")
 
-for i in oplexicon.readlines():
-    linha_splitted = i.split(',')
-    palavra = linha_splitted[0]
-    polaridade = linha_splitted[2]
-    dic_palavra_polaridade['{}'.format(palavra)] = polaridade
+    for i in oplexicon.readlines():
+        linha_splitted = i.split(',')
+        palavra = linha_splitted[0]
+        polaridade = linha_splitted[2]
+        dic_palavra_polaridade['{}'.format(palavra)] = polaridade
 
 
-def score_sentimento(frase):
+def sentiment_score(frase):
     frase = frase.lower()
     l_sentimento = []
     for p in frase.split():
