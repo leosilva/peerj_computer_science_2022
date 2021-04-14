@@ -61,8 +61,8 @@ def oplexicon_analysis(tweets, is_no_storage = False):
         emoticon_analysis = ea.emoji_score(tweet)
         oplexicon_analysis = ut.normalize(oplexicon_analysis)
         oplexicon_analysis = oplexicon_analysis + emoticon_analysis
-        if oplexicon_analysis > 1:
-            oplexicon_analysis = 1
+        if float(oplexicon_analysis) > 1.0:
+            oplexicon_analysis = 1.0
         analysis_results_for_summary.append(oplexicon_analysis)
 
         polarity = ''
@@ -93,8 +93,8 @@ def sentistrength_analysis(tweets, is_no_storage = False):
         emoticon_analysis = ea.emoji_score(tweet)
         sentistrenth_analysis = ut.normalize(sentistrenth_analysis)
         sentistrenth_analysis = sentistrenth_analysis + emoticon_analysis
-        if sentistrenth_analysis > 1:
-            sentistrenth_analysis = 1
+        if float(sentistrenth_analysis) > 1.0:
+            sentistrenth_analysis = 1.0
         analysis_results_for_summary.append(sentistrenth_analysis)
 
         polarity = ''
@@ -127,8 +127,8 @@ def sentilexpt_analysis(tweets, is_no_storage = False):
         emoticon_analysis = ea.emoji_score(tweet)
         sentilexpt_analysis = ut.normalize(sentilexpt_analysis)
         sentilexpt_analysis = sentilexpt_analysis + emoticon_analysis
-        if sentilexpt_analysis > 1:
-            sentilexpt_analysis = 1
+        if float(sentilexpt_analysis) > 1.0:
+            sentilexpt_analysis = 1.0
         analysis_results_for_summary.append(sentilexpt_analysis)
 
         polarity = ''

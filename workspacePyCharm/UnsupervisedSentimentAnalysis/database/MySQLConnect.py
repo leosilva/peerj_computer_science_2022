@@ -34,3 +34,38 @@ def update_scores_tweet(id, score, polarity, algorithm):
 
     cursor.execute(sql)
     connection.commit()
+
+
+def update_overall_scores_and_polarities():
+    print("updating overall scores and polarities...")
+    connection, cursor = __get_connection()
+    algorithm_scores = ['vader_sentiment_analysis_score',
+                        'oplexicon_sentiment_analysis_score',
+                        'sentistrength_sentiment_analysis_score',
+                        'sentilexpt_sentiment_analysis_score']
+
+    cursor.execute('SELECT id, {} FROM Tweet'.format(",".join(algorithm_scores)))
+    tweets = cursor.fetchall()
+
+    batch_update = "UPDATE Tweet t SET t.final_score = %s, t.final_polarity = %s WHERE t.id = %s"
+    parameters = []
+
+    for t in tweets:
+        id = t[0]
+        scores = t[1:]
+        final_score = sum(list(map(lambda x:float(x), scores))) / len(scores)
+
+        polarity = ''
+        if final_score > 0:
+            polarity = 'pos'
+        elif final_score < 0:
+            polarity = 'neg'
+        else:
+            polarity = 'neu'
+
+        parameters.append((final_score, polarity, id))
+
+    cursor.executemany(batch_update, parameters)
+    connection.commit()
+
+update_overall_scores_and_polarities()
