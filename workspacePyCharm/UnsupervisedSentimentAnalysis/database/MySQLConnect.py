@@ -67,5 +67,3 @@ def update_overall_scores_and_polarities():
 
     cursor.executemany(batch_update, parameters)
     connection.commit()
-
-update_overall_scores_and_polarities()
