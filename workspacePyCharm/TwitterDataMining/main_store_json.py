@@ -48,7 +48,7 @@ def remove_tweets_containing_media(tweets):
 
 
 if __name__ == '__main__':
-    with open("json/felipperegazio.json", "r") as read_file:
+    with open("json/rponte.json", "r") as read_file:
         data = json.load(read_file)
         tweets_to_insert = prepare_scrapped_tweets_to_insert(data)
         tweets_to_insert = remove_tweets_containing_media(tweets_to_insert)
