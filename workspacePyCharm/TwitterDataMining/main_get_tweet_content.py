@@ -18,7 +18,7 @@ if __name__ == '__main__':
                 "retweet_count": t[5],
                 "lang": t[6],
                 "id_user": t[7],
-                "text_updated": t[9]
+                "text_updated": t[18]
             }
             if tweet['text_updated'] == 0:
                 print("Nº {}. Getting full content of tweet {}".format(count, tweet['id']))
