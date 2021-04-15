@@ -179,7 +179,7 @@ class Scraper:
             """
             return set(findall(f'(?<="/{self.handle}/status/)[0-9]+', driver.page_source, flags=IGNORECASE))
 
-        with init_chromedriver(debug=True) as driver:  # options are Chrome(), Firefox(), Safari()
+        with init_firefoxdriver(debug=True) as driver:  # options are Chrome(), Firefox(), Safari()
             days = (end - start).days + 1
 
             # scrape tweets using a sliding window
@@ -274,20 +274,83 @@ def init_chromedriver(debug=False):
         options.add_argument("--disable-setuid-sandbox")
     return webdriver.Chrome(options=options)
 
+def init_firefoxdriver(debug=True):
+    options = webdriver.FirefoxOptions()
+    if not debug:
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument("--disable-setuid-sandbox")
+    return webdriver.Firefox(options=options)
+
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog="scrape.py", usage="python3 %(prog)s [options]",
-                                     description="scrape.py - Twitter Scraping Tool")
-    parser.add_argument("-u", "--username", help="Scrape this user's Tweets", required=True)
-    parser.add_argument("--since", help="Get Tweets after this date (Example: 2010-01-01).")
-    parser.add_argument("--until", help="Get Tweets before this date (Example: 2018-12-07).")
-    parser.add_argument("--by", help="Scrape this many days at a time", type=int, default=7)
-    parser.add_argument("--delay", help="Time given to load a page before scraping it (seconds)", type=int, default=3)
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser(prog="scrape.py", usage="python3 %(prog)s [options]",
+    #                                  description="scrape.py - Twitter Scraping Tool")
+    # parser.add_argument("-u", "--username", help="Scrape this user's Tweets", required=True)
+    # parser.add_argument("--since", help="Get Tweets after this date (Example: 2010-01-01).")
+    # parser.add_argument("--until", help="Get Tweets before this date (Example: 2018-12-07).")
+    # parser.add_argument("--by", help="Scrape this many days at a time", type=int, default=7)
+    # parser.add_argument("--delay", help="Time given to load a page before scraping it (seconds)", type=int, default=3)
+    # args = parser.parse_args()
 
-    begin = datetime.strptime(args.since, DATE_FORMAT) if args.since else get_join_date(args.username)
-    end = datetime.strptime(args.until, DATE_FORMAT) if args.until else datetime.now()
+    users = [
+        # 'felipperegazio',
+        # 'guilh_rm_',
+        'rponte',
+        # 'nannoka',
+        # 'rebelatto',
+        'psanrosa13',
+        'dev_jessi'
+        # 'riquettinha'
+    ]
 
-    user = Scraper(args.username)
-    user.scrape(begin, end, args.by, args.delay)
-    user.dump_tweets()
+    periods = [
+        {
+            'since': '2018-03-31',
+            'until': '2018-07-01'
+        },
+        {
+            'since': '2018-07-01',
+            'until': '2018-11-01'
+        },
+        {
+            'since': '2018-11-01',
+            'until': '2019-03-01'
+        },
+        {
+            'since': '2019-03-01',
+            'until': '2019-07-01'
+        },
+        {
+            'since': '2019-07-01',
+            'until': '2020-01-01'
+        },
+        {
+            'since': '2020-01-01',
+            'until': '2020-05-01'
+        },
+        {
+            'since': '2020-05-01',
+            'until': '2020-09-01'
+        },
+        {
+            'since': '2020-09-01',
+            'until': '2021-01-01'
+        },
+        {
+            'since': '2021-01-01',
+            'until': '2021-03-31'
+        }
+    ]
+
+    for u in users:
+        for p in periods:
+            begin = datetime.strptime(p['since'], DATE_FORMAT) if p['since'] else get_join_date(u)
+            end = datetime.strptime(p['until'], DATE_FORMAT) if p['until'] else datetime.now()
+
+
+            print("scrapping tweets for user {}".format(u))
+            print("period: {} to {}".format(p['since'], p['until']))
+            user = Scraper(u)
+            user.scrape(begin, end, 7, 3)
+            user.dump_tweets()
