@@ -48,14 +48,26 @@ def remove_tweets_containing_media(tweets):
 
 
 if __name__ == '__main__':
-    with open("json/nannoka.json", "r") as read_file:
-        data = json.load(read_file)
-        tweets_to_insert = prepare_scrapped_tweets_to_insert(data)
-        tweets_to_insert = remove_tweets_containing_media(tweets_to_insert)
-        db.store_tweets(tweets_to_insert)
-        # for d in data:
-        #     json = data[d]
-        #     print(json["created_at"])
-    # tweets_to_insert = prepare_scrapped_tweets_to_insert(tweets)
-    # tweets_to_insert = remove_tweets_containing_media(tweets_to_insert)
-    # db.store_tweets(tweets_to_insert)
+    users = [
+        # 'felipperegazio',
+        # 'guilh_rm_',
+        # 'rponte',
+        # 'nannoka',
+        # 'rebelatto',
+        # 'psanrosa13',
+        # 'dev_jessi',
+        'riquettinha'
+    ]
+
+    for u in users:
+        with open("json/{}.json".format(u), "r") as read_file:
+            data = json.load(read_file)
+            tweets_to_insert = prepare_scrapped_tweets_to_insert(data)
+            tweets_to_insert = remove_tweets_containing_media(tweets_to_insert)
+            db.store_tweets(tweets_to_insert)
+            # for d in data:
+            #     json = data[d]
+            #     print(json["created_at"])
+        # tweets_to_insert = prepare_scrapped_tweets_to_insert(tweets)
+        # tweets_to_insert = remove_tweets_containing_media(tweets_to_insert)
+        # db.store_tweets(tweets_to_insert)

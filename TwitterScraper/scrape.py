@@ -296,12 +296,12 @@ if __name__ == "__main__":
     users = [
         # 'felipperegazio',
         # 'guilh_rm_',
-        'rponte',
+        # 'rponte',
         # 'nannoka',
         # 'rebelatto',
-        'psanrosa13',
-        'dev_jessi'
-        # 'riquettinha'
+        # 'psanrosa13',
+        # 'dev_jessi',
+        'riquettinha'
     ]
 
     periods = [
