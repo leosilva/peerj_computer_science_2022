@@ -179,7 +179,7 @@ class Scraper:
             """
             return set(findall(f'(?<="/{self.handle}/status/)[0-9]+', driver.page_source, flags=IGNORECASE))
 
-        with init_firefoxdriver(debug=True) as driver:  # options are Chrome(), Firefox(), Safari()
+        with init_firefoxdriver(debug=False) as driver:  # options are Chrome(), Firefox(), Safari()
             days = (end - start).days + 1
 
             # scrape tweets using a sliding window
@@ -301,8 +301,11 @@ if __name__ == "__main__":
         # 'rebelatto',
         # 'psanrosa13',
         # 'dev_jessi',
-        'riquettinha'
+        # 'riquettinha'
+        # 'rla4',
+        'Gabrielathalita'
     ]
+
 
     periods = [
         {
