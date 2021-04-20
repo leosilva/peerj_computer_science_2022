@@ -53,6 +53,8 @@ def update_overall_scores_and_polarities():
     for t in tweets:
         id = t[0]
         scores = t[1:]
+        # removing None values
+        scores = [s for s in scores if s is not None]
         final_score = sum(list(map(lambda x:float(x), scores))) / len(scores)
 
         polarity = ''

@@ -11,8 +11,6 @@ select u.screen_name, count(t.id) from User u inner JOIN Tweet t on u.id = t.id_
 select count(*) from Tweet t where t.text_updated = 0;
 
 
-select * from Tweet t where t.id = 153560;
-
 select * from Tweet t;
 
 
@@ -28,8 +26,8 @@ select count(*) from Tweet t where t.final_score is null;
 
 select t.created_at from Tweet t
 inner join User u on t.id_user = u.id
-where u.screen_name = "riquettinha"
-order by t.created_at;
+where u.screen_name = "rla4"
+order by t.created_at desc;
 
 SHOW ENGINE INNODB STATUS;
 
@@ -74,5 +72,7 @@ INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (37, 43, 36, 24, 26, (SELECT u.id from User u where u.screen_name = 'rebelatto'));
 INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (29, 45, 34, 35, 29, (SELECT u.id from User u where u.screen_name = 'Gabrielathalita'));
+INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
+VALUES (35, 35, 32, 26, 16, (SELECT u.id from User u where u.screen_name = 'rla4'));
 
 select * from BigFiveResult b;
