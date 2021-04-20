@@ -60,7 +60,7 @@ class Scraper:
     def __init__(self, handle):
         self.api = self.__authorize()
         self.handle = handle.lower()
-        self.outfile = "json/" + self.handle + ".json"
+        self.outfile = "/Users/leosilva/Documents/Estudo/Doutorado/Coimbra/2019-2020/Disciplinas/Thesis/json/" + self.handle + ".json"
         self.new_tweets = set()  # ids
         self.tweets = self.__retrieve_existing()  # actual tweets
 
@@ -301,11 +301,10 @@ if __name__ == "__main__":
         # 'rebelatto',
         # 'psanrosa13',
         # 'dev_jessi',
-        # 'riquettinha'
+        'riquettinha'
         # 'rla4',
-        'Gabrielathalita'
+        # 'Gabrielathalita'
     ]
-
 
     periods = [
         {

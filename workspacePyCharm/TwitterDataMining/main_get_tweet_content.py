@@ -23,6 +23,7 @@ if __name__ == '__main__':
             if tweet['text_updated'] == 0:
                 print("Nº {}. Getting full content of tweet {}".format(count, tweet['id']))
                 tweet = tdc.get_tweet_content(tweet)
+                tweet['text'] = tweet['text'].replace("'", "''")
                 db.update_tweet_text(tweet)
                 count+=1
     print("Ending script...")

@@ -56,11 +56,12 @@ if __name__ == '__main__':
         # 'rebelatto',
         # 'psanrosa13',
         # 'dev_jessi',
-        'riquettinha'
+        # 'riquettinha',
+        'Gabrielathalita'
     ]
 
     for u in users:
-        with open("json/{}.json".format(u), "r") as read_file:
+        with open("/Users/leosilva/Documents/Estudo/Doutorado/Coimbra/2019-2020/Disciplinas/Thesis/json/{}.json".format(u), "r") as read_file:
             data = json.load(read_file)
             tweets_to_insert = prepare_scrapped_tweets_to_insert(data)
             tweets_to_insert = remove_tweets_containing_media(tweets_to_insert)
