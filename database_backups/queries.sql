@@ -5,13 +5,42 @@ select * from Tweet where lang = "pt" order by rand() limit 20;
 select * from BigFiveResult;
 
 
-select u.screen_name, count(t.id) from User u inner JOIN Tweet t on u.id = t.id_user group by u.screen_name;
+select u.screen_name, t.* from Tweet t inner join User U on t.id_user = U.id
+where t.id in (106154, 106155, 106156);
+
+
+SELECT u.screen_name,
+       count(*) as total,
+       (select count(*) from Tweet t where t.vader_sentiment_analysis_polarity = 'pos' and t.id_user = u.id) as pos_vad,
+       (select count(*) from Tweet t where t.vader_sentiment_analysis_polarity = 'neg' and t.id_user = u.id) as neg_vad,
+       (select count(*) from Tweet t where t.vader_sentiment_analysis_polarity = 'neu' and t.id_user = u.id) as neu_vad,
+       (select count(*) from Tweet t where t.oplexicon_sentiment_analysis_polarity = 'pos' and t.id_user = u.id) as pos_opl,
+       (select count(*) from Tweet t where t.oplexicon_sentiment_analysis_polarity = 'neg' and t.id_user = u.id) as neg_opl,
+       (select count(*) from Tweet t where t.oplexicon_sentiment_analysis_polarity = 'neu' and t.id_user = u.id) as neu_opl,
+       (select count(*) from Tweet t where t.sentistrength_sentiment_analysis_polarity = 'pos' and t.id_user = u.id) as pos_str,
+       (select count(*) from Tweet t where t.sentistrength_sentiment_analysis_polarity = 'neg' and t.id_user = u.id) as neg_str,
+       (select count(*) from Tweet t where t.sentistrength_sentiment_analysis_polarity = 'neu' and t.id_user = u.id) as neu_str,
+       (select count(*) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'pos' and t.id_user = u.id) as pos_stl,
+       (select count(*) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'neg' and t.id_user = u.id) as neg_stl,
+       (select count(*) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'neu' and t.id_user = u.id) as neu_stl
+FROM User u INNER JOIN Tweet t ON u.id = t.id_user GROUP BY u.screen_name;
 
 
 select count(*) from Tweet t where t.text_updated = 0;
 
 
-select * from Tweet t;
+select * from Tweet t inner join User U on t.id_user = U.id where u.screen_name = 'thamyk';
+
+
+update Tweet t SET
+ t.oplexicon_sentiment_analysis_polarity = null,
+ t.oplexicon_sentiment_analysis_score = null,
+#  t.sentistrength_sentiment_analysis_polarity = null,
+#  t.sentistrength_sentiment_analysis_score = null,
+#  t.sentilexpt_sentiment_analysis_polarity = null,
+#  t.sentilexpt_sentiment_analysis_score = null,
+ t.final_score = null,
+ t.final_polarity = null;
 
 
 SELECT id FROM User u WHERE u.id_str_twitter = '10384742';
@@ -19,9 +48,16 @@ SELECT id FROM User u WHERE u.id_str_twitter = '10384742';
 
 select count(*) from Tweet t where t.vader_sentiment_analysis_score is null;
 select count(*) from Tweet t where t.oplexicon_sentiment_analysis_score is null;
+select count(*) from Tweet t where t.oplexicon_sentiment_analysis_polarity = 'pos'; # 1282
+select count(*) from Tweet t where t.oplexicon_sentiment_analysis_polarity = 'neg'; # 583
+select count(*) from Tweet t where t.oplexicon_sentiment_analysis_polarity = 'neu'; # 42286
 select count(*) from Tweet t where t.sentistrength_sentiment_analysis_score is null;
 select count(*) from Tweet t where t.sentilexpt_sentiment_analysis_score is null;
 select count(*) from Tweet t where t.final_score is null;
+
+select count(*) from Tweet t where t.final_polarity = 'pos'; # 15630
+select count(*) from Tweet t where t.final_polarity = 'neg'; # 16042
+select count(*) from Tweet t where t.final_polarity = 'neu'; # 12479
 
 
 select t.created_at from Tweet t

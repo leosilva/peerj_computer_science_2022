@@ -27,11 +27,6 @@ def vader_analysis(tweets, is_no_storage = False):
     df.columns = ["id", "id_str_twitter", "text", "vader_sentiment_analysis_score", "vader_sentiment_analysis_polarity"]
     df['text'] = ut.clean_tweets(df['text'])
 
-    # id_tw = df['id'] == 134006
-    #
-    # new_df = df[id_tw]
-    # print(new_df)
-
     for i in range(df['text'].shape[0]):
         is_already_analyzed = True
         if np.isnan(df['vader_sentiment_analysis_score'][i]):
@@ -66,17 +61,23 @@ def oplexicon_analysis(tweets, is_no_storage = False):
         is_already_analyzed = t[10] is not None
         if is_already_analyzed == False:
             tweet = t[2]
+            # print('id: {}'.format(t[0]))
+            # print('tweet original: {}'.format(tweet))
             tweet = ut.clean_tweets(tweet)
             tweet = np.array2string(tweet)
             tweet = ut.remove_stop_words(tweet)
             tweet = op.remove_repeated_letters(tweet)
+            # print('tweet after cleaning: {}'.format(tweet))
             # tweet = op.stemming(tweet)
             oplexicon_analysis = op.sentiment_score(tweet)
-            emoticon_analysis = ea.emoji_score(tweet)
+            # emoticon_analysis = ea.emoji_score(tweet)
             oplexicon_analysis = ut.normalize(oplexicon_analysis)
-            oplexicon_analysis = oplexicon_analysis + emoticon_analysis
+            # oplexicon_analysis = oplexicon_analysis + emoticon_analysis
+
             if float(oplexicon_analysis) > 1.0:
                 oplexicon_analysis = 1.0
+            elif float(oplexicon_analysis) < -1.0:
+                oplexicon_analysis = -1.0
             analysis_results_for_summary.append(oplexicon_analysis)
 
             polarity = ''
@@ -108,12 +109,19 @@ def sentistrength_analysis(tweets, is_no_storage = False):
             tweet = ut.remove_stop_words(tweet)
             tweet = ut.remove_repeated_letters(tweet)
             # tweet = op.stemming(tweet)
-            sentistrenth_analysis = sa.perform_sentistrength_analysis(tweet)
-            emoticon_analysis = ea.emoji_score(tweet)
+            sentistrenth_analysis = sa.sentiment_score(tweet)
+            l_sentiment = ea.emoji_score(tweet)
             sentistrenth_analysis = ut.normalize(sentistrenth_analysis)
-            sentistrenth_analysis = sentistrenth_analysis + emoticon_analysis
+
+            if len(l_sentiment) > 0:
+                score_sum = sentistrenth_analysis + sum(l_sentiment)
+                size = len(l_sentiment) + 1
+                sentistrenth_analysis = score_sum / size
+
             if float(sentistrenth_analysis) > 1.0:
                 sentistrenth_analysis = 1.0
+            elif float(sentistrenth_analysis) < -1.0:
+                sentistrenth_analysis = -1.0
             analysis_results_for_summary.append(sentistrenth_analysis)
 
             polarity = ''
@@ -147,12 +155,20 @@ def sentilexpt_analysis(tweets, is_no_storage = False):
             tweet = ut.remove_stop_words(tweet)
             tweet = sl.remove_repeated_letters(tweet)
             # tweet = op.stemming(tweet)
+
             sentilexpt_analysis = sl.sentiment_score(tweet)
-            emoticon_analysis = ea.emoji_score(tweet)
+            l_sentiment = ea.emoji_score(tweet)
             sentilexpt_analysis = ut.normalize(sentilexpt_analysis)
-            sentilexpt_analysis = sentilexpt_analysis + emoticon_analysis
+
+            if len(l_sentiment) > 0:
+                score_sum = sentilexpt_analysis + sum(l_sentiment)
+                size = len(l_sentiment) + 1
+                sentilexpt_analysis = score_sum / size
+
             if float(sentilexpt_analysis) > 1.0:
                 sentilexpt_analysis = 1.0
+            elif float(sentilexpt_analysis) < -1.0:
+                sentilexpt_analysis = -1.0
             analysis_results_for_summary.append(sentilexpt_analysis)
 
             polarity = ''

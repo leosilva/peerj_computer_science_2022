@@ -58,8 +58,9 @@ if __name__ == '__main__':
         # 'dev_jessi',
         # 'riquettinha',
         # 'Gabrielathalita'
-        'riquettinha',
-        'rla4'
+        # 'riquettinha',
+        # 'rla4'
+        'thamyk'
     ]
 
     for u in users:
