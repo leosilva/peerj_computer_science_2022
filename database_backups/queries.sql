@@ -33,6 +33,7 @@ select distinct
     (select count(t.id) from Tweet t where t.vader_sentiment_analysis_polarity = 'neg') as neg,
     (select count(t.id) from Tweet t where t.vader_sentiment_analysis_polarity = 'neu') as neu
 from Tweet t;
+# pos: 15740, neg: 16504, neu:11907
 
 
 
@@ -42,7 +43,7 @@ select distinct
     (select count(t.id) from Tweet t where t.oplexicon_sentiment_analysis_polarity = 'neg') as neg,
     (select count(t.id) from Tweet t where t.oplexicon_sentiment_analysis_polarity = 'neu') as neu
 from Tweet t;
-
+# pos: 20393, neg: 8536, neu: 15222
 
 
 # Tweets positivos, negativos e neutros analisados com o Sentistrength
@@ -51,7 +52,7 @@ select distinct
     (select count(t.id) from Tweet t where t.sentistrength_sentiment_analysis_polarity = 'neg') as neg,
     (select count(t.id) from Tweet t where t.sentistrength_sentiment_analysis_polarity = 'neu') as neu
 from Tweet t;
-
+# pos: 14066, neg: 9546, neu: 20539
 
 
 # Tweets positivos, negativos e neutros analisados com o SentilexPT
@@ -60,15 +61,15 @@ select distinct
     (select count(t.id) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'neg') as neg,
     (select count(t.id) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'neu') as neu
 from Tweet t;
-
+# pos: 14212, neg: 10992, neu: 18947
 
 
 select count(*) from Tweet t where t.text = 'RT @AndrewBrobston: Learned this morning that today is my -- and many others';
 
 
 update Tweet t SET
- t.vader_sentiment_analysis_polarity = null,
- t.vader_sentiment_analysis_score = null,
+#  t.vader_sentiment_analysis_polarity = null,
+#  t.vader_sentiment_analysis_score = null,
  t.oplexicon_sentiment_analysis_polarity = null,
  t.oplexicon_sentiment_analysis_score = null,
  t.sentistrength_sentiment_analysis_polarity = null,
