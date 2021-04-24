@@ -12,10 +12,10 @@ def emoji_score(text):
         if w in emoji_list:
             l_sentiment.append(em.get_emoji_sentiment_rank(w)['sentiment_score'])
 
-    score = 0
-    if len(l_sentiment) > 1:
-        score = sum(l_sentiment) / len(l_sentiment)
-    else:
-        score = sum(l_sentiment)
+    # score = 0
+    # if len(l_sentiment) > 1:
+    #     score = sum(l_sentiment) / len(l_sentiment)
+    # else:
+    #     score = sum(l_sentiment)
 
-    return score
+    return l_sentiment
