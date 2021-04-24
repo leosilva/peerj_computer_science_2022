@@ -27,11 +27,6 @@ def vader_analysis(tweets, is_no_storage = False):
     df.columns = ["id", "id_str_twitter", "text", "vader_sentiment_analysis_score", "vader_sentiment_analysis_polarity"]
     df['text'] = ut.clean_tweets(df['text'])
 
-    # id_tw = df['id'] == 134006
-    #
-    # new_df = df[id_tw]
-    # print(new_df)
-
     for i in range(df['text'].shape[0]):
         is_already_analyzed = True
         if pd.isnull(df['vader_sentiment_analysis_score'][i]):
@@ -84,12 +79,15 @@ def oplexicon_analysis(tweets, is_no_storage = False):
                 size = len(l_sentiment) + 1
                 oplexicon_analysis = score_sum / size
 
+            # emoticon_analysis = ea.emoji_score(tweet)
+            # oplexicon_analysis = ut.normalize(oplexicon_analysis)
+            # oplexicon_analysis = oplexicon_analysis + emoticon_analysis
+
             if float(oplexicon_analysis) > 1.0:
                 oplexicon_analysis = 1.0
             elif float(oplexicon_analysis) < -1.0:
                 oplexicon_analysis = -1.0
             analysis_results_for_summary.append(oplexicon_analysis)
-
 
             # oplexicon_analysis = op.sentiment_score(tweet)
             # # print('oplexicon score: {}'.format(oplexicon_analysis))
