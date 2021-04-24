@@ -102,9 +102,13 @@ def sentistrength_analysis(tweets, is_no_storage = False):
     analysis_results_for_summary = []
     print("analyzing tweets with sentistrength...")
 
+    count = 1
+    print('total tweets: {}'.format(len(tweets)))
+    tweets_to_update = []
     for t in tweets:
         is_already_analyzed = t[12] is not None
         if is_already_analyzed == False:
+            print('count: {}'.format(count))
             tweet = t[2]
             tweet = ut.clean_tweets(tweet)
             tweet = np.array2string(tweet)
@@ -136,7 +140,11 @@ def sentistrength_analysis(tweets, is_no_storage = False):
                 polarity = constant.NEGATIVE_POLARITY
 
             if is_no_storage == False or is_no_storage == None:
-                db.update_scores_tweet(t[0], sentistrenth_analysis, polarity, constant.SENTISTRENGTH_ALGORITHM)
+                tweets_to_update.append((sentistrenth_analysis, polarity, t[0]))
+                # db.update_scores_tweet(t[0], sentistrenth_analysis, polarity, constant.SENTISTRENGTH_ALGORITHM)
+            count += 1
+
+    db.update_scores_tweet_batch(tweets_to_update, constant.SENTISTRENGTH_ALGORITHM)
 
     ut.print_summary_analysis(analysis_results_for_summary)
 
