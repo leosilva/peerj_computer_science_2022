@@ -4,7 +4,7 @@ import time
 
 if __name__ == '__main__':
     print("Starting script...")
-    (allusers, tweets) = db.get_all_tweets()
+    (allusers, tweets, bigfive) = db.get_all_tweets()
     for u in tweets:
         t_user = tweets[u]
         count = 1

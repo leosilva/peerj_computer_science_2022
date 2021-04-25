@@ -13,7 +13,7 @@ def json_serial(obj):
 if __name__ == '__main__':
     file = "/Users/leosilva/development/thesis/workspacePyCharm/TwitterDataMining/alldata.json"
     print("Starting script...")
-    (allusers, tweets) = db.get_all_tweets()
+    (allusers, tweets, bigfive) = db.get_all_tweets()
     result_dict = {}
     for user in allusers:
         result_dict[user[0]] = {
@@ -23,7 +23,8 @@ if __name__ == '__main__':
             "location" : user[4],
             "url" : user[5],
             "created_at": str(user[6]),
-            "tweets" : tweets[user[0]]
+            "tweets" : tweets[user[0]],
+            "bigfive" : bigfive[user[0]]
         }
 
     if os.path.exists(file):

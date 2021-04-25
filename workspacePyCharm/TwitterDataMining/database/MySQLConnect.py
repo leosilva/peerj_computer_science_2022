@@ -224,9 +224,13 @@ def get_all_tweets():
     cursor.execute("SELECT * FROM User u")
     allusers = cursor.fetchall()
     tweets = {}
+    bigfive = {}
 
     for user in allusers:
         cursor.execute("SELECT * FROM Tweet t WHERE t.id_user = '{}'".format(user[0]))
         tweets[user[0]] = cursor.fetchall()
 
-    return (allusers, tweets)
+        cursor.execute("SELECT * FROM BigFiveResult b WHERE b.id_user = '{}'".format(user[0]))
+        bigfive[user[0]] = cursor.fetchall()
+
+    return (allusers, tweets, bigfive)
