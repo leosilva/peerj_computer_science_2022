@@ -26,6 +26,36 @@ SELECT u.screen_name,
 FROM User u INNER JOIN Tweet t ON u.id = t.id_user GROUP BY u.screen_name;
 
 
+select
+       count(*) total,
+       (select te.vader_sentiment_analysis_polarity from Tweet te where te.id = t.id) as pol
+from Tweet t
+where t.vader_sentiment_analysis_score between -0.05 and 0.05
+group by pol;
+
+select
+       count(*) total,
+       (select te.oplexicon_sentiment_analysis_polarity from Tweet te where te.id = t.id) as pol
+from Tweet t
+where t.oplexicon_sentiment_analysis_score between -0.05 and 0.05
+group by pol;
+
+
+select
+       count(*) total,
+       (select te.sentistrength_sentiment_analysis_polarity from Tweet te where te.id = t.id) as pol
+from Tweet t
+where t.sentistrength_sentiment_analysis_score between -0.05 and 0.05
+group by pol;
+
+
+select
+       count(*) total,
+       (select te.sentilexpt_sentiment_analysis_polarity from Tweet te where te.id = t.id) as pol
+from Tweet t
+where t.sentilexpt_sentiment_analysis_polarity between -0.05 and 0.05
+group by pol;
+
 
 # Tweets positivos, negativos e neutros analisados com o VADER
 select distinct
