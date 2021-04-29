@@ -108,7 +108,6 @@ def sentistrength_analysis(tweets, is_no_storage = False):
     for t in tweets:
         is_already_analyzed = t[12] is not None
         if is_already_analyzed == False:
-            print('count: {}'.format(count))
             tweet = t[2]
             tweet = ut.clean_tweets(tweet)
             tweet = np.array2string(tweet)

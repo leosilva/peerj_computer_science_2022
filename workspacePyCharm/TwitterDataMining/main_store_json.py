@@ -60,8 +60,10 @@ if __name__ == '__main__':
         # 'Gabrielathalita'
         # 'riquettinha',
         # 'rla4'
-        'thamyk'
+        # 'thamyk'
+        'felipefialho_'
     ]
+
 
     for u in users:
         with open("/Users/leosilva/Documents/Estudo/Doutorado/Coimbra/2019-2020/Disciplinas/Thesis/json/{}.json".format(u), "r") as read_file:

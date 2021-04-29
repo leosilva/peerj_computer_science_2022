@@ -6,7 +6,8 @@ select * from BigFiveResult;
 
 
 
-SELECT u.screen_name,
+SELECT u.id,
+       u.screen_name,
        count(*) as total,
        (select count(*) from Tweet t where t.vader_sentiment_analysis_polarity = 'pos' and t.id_user = u.id) as pos_vad,
        (select count(*) from Tweet t where t.vader_sentiment_analysis_polarity = 'neg' and t.id_user = u.id) as neg_vad,
