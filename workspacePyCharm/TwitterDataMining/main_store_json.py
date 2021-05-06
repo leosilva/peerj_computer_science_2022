@@ -61,7 +61,8 @@ if __name__ == '__main__':
         # 'riquettinha',
         # 'rla4'
         # 'thamyk'
-        'felipefialho_'
+        # 'felipefialho_'
+        'juanplopes'
     ]
 
 

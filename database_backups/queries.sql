@@ -202,5 +202,7 @@ INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (40, 46, 38, 22, 21, (SELECT u.id from User u where u.screen_name = 'felipefialho_'));
 INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (17,	33,	33,	22,	39, (SELECT u.id from User u where u.screen_name = 'psanrosa13'));
+INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
+VALUES (32,	46,	19,	18,	28, (SELECT u.id from User u where u.screen_name = 'juanplopes'));
 
 select * from BigFiveResult b;
