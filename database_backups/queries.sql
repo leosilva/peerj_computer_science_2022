@@ -2,7 +2,15 @@ use TwitterDataMining;
 
 select * from User;
 select * from Tweet where lang = "pt" order by rand() limit 20;
+select count(*) from Tweet t;
 select * from BigFiveResult;
+
+# SELECAO ALEATORIA DE TWEETS POR DETERMINADO TRIMESTRE, USUARIO E POLARIDADE
+select * from Tweet t INNER JOIN User u on t.id_user = u.id
+where t.created_at between "2018-03-31 23:59:59" and "2018-07-01 23:59:59"
+and u.id = 26
+and t.final_polarity = 'pos'
+order by rand() LIMIT 10;
 
 
 
