@@ -1,6 +1,6 @@
 import json
 import tweepy
-import csv
+import database.MySQLConnect as db
 from TwitterDataCollection.api_key import key
 import re
 
@@ -21,6 +21,35 @@ def get_tweet_content(tweet):
         print('Error not authorized')
         print(e)
     return tweet
+
+
+def check_tweet_is_retweet(tweet):
+    try:
+        status = api.get_status(tweet['id_str_twitter'], tweet_mode="extended", wait_on_rate_limit=True)
+        if hasattr(status, 'retweeted_status') == True:
+            return 1
+    except tweepy.error.TweepError as e:
+        print('Error not authorized')
+        print(e)
+    return 0
+
+
+def fix_tweet_text(tweet):
+    try:
+        status = api.get_status(tweet['id_str_twitter'], tweet_mode="extended", wait_on_rate_limit=True)
+        text = re.search(r"@[\w]*", tweet['text']).group(0)
+        if text == '@AndrewBrobston':
+            # print('OLD: ', tweet['text'])
+            new_text = re.search(r"@[\w]*", status.full_text).group(0)
+            tweet['text'] = tweet['text'].replace(text, new_text)
+            tweet['text'] = tweet['text'].replace("'", "''")
+            return (True, tweet)
+    except Exception as e:
+        # print('Error not authorized')
+        print(e)
+    return (False, tweet)
+
+
 
 def get_all_tweets(screen_name):
 

@@ -4,7 +4,6 @@ import utils as ut
 import argparse
 import numpy as np
 import constant
-
 import vader_analysis as va
 import oplexicon_analysis as op
 import sentistrength_analysis as sa
@@ -12,12 +11,13 @@ import sentilexpt_analysis as sl
 import emoticon_analysis as ea
 
 
+analysis_results_for_summary = []
+
 def vader_analysis(tweets, is_no_storage = False):
     """Function that runs and stores tweets sentiment analysis using VADER lexicon"""
 
     print("analyzing tweets with vader...")
 
-    analysis_results_for_summary = []
     columns = [0, 1, 2, 8, 9]
     #convert array to dataframe
     df = pd.DataFrame.from_dict(tweets)
@@ -54,7 +54,6 @@ def oplexicon_analysis(tweets, is_no_storage = False):
 
     print("analyzing tweets with oplexicon...")
 
-    analysis_results_for_summary = []
     op.create_dictionary()
 
     for t in tweets:
@@ -99,7 +98,6 @@ def oplexicon_analysis(tweets, is_no_storage = False):
 def sentistrength_analysis(tweets, is_no_storage = False):
     """Function that runs and stores tweets sentiment analysis using SENTISTRENGTH lexicon"""
 
-    analysis_results_for_summary = []
     print("analyzing tweets with sentistrength...")
 
     count = 1
@@ -153,7 +151,6 @@ def sentilexpt_analysis(tweets, is_no_storage = False):
 
     print("analyzing tweets with sentilex-pt...")
 
-    analysis_results_for_summary = []
     sl.create_dictionaries()
 
     for t in tweets:

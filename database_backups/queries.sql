@@ -1,9 +1,26 @@
 use TwitterDataMining;
 
-select * from User;
+select count(*) from User;
 select * from Tweet where lang = "pt" order by rand() limit 20;
-select count(*) from Tweet t;
+select * from Tweet t;
 select * from BigFiveResult;
+
+
+select count(*) from Tweet t where t.is_retweet = 1;
+
+
+select
+       u.id as id_user,
+       u.screen_name,
+       (select count(*) from Tweet tw where tw.id_user = u.id) as total_tweets,
+       count(t.id) as retweets
+from Tweet t inner join User u on t.id_user = u.id
+where t.is_retweet = 1
+group by u.screen_name;
+
+
+select * from Tweet t where t.text like 'RT %' and t.is_retweet = 0;
+
 
 # SELECAO ALEATORIA DE TWEETS POR DETERMINADO TRIMESTRE, USUARIO E POLARIDADE
 select * from Tweet t INNER JOIN User u on t.id_user = u.id
@@ -12,6 +29,13 @@ and u.id = 26
 and t.final_polarity = 'pos'
 order by rand() LIMIT 10;
 
+# QTD TWEETS DOS USUARIOS QUE POSSUEM BIG FIVE RESPONDIDO: 46165
+select count(*) from Tweet t inner join User u on t.id_user = u.id
+inner join BigFiveResult bf on u.id = bf.id_user;
+
+# QTD TWEETS DOS USUARIOS QUE NÃO POSSUEM BIG FIVE RESPONDIDO: 15322
+select count(*) from Tweet t inner join User u on t.id_user = u.id
+left join BigFiveResult bf on u.id = bf.id_user where bf.id_user is null;
 
 
 SELECT u.id,
@@ -94,6 +118,7 @@ from Tweet t;
 # pos: 14066, neg: 9546, neu: 20539
 
 
+
 # Tweets positivos, negativos e neutros analisados com o SentilexPT
 select distinct
     (select count(t.id) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'pos') as pos,
@@ -103,12 +128,18 @@ from Tweet t;
 # pos: 14212, neg: 10992, neu: 18947
 
 
-select count(*) from Tweet t where t.text = 'RT @AndrewBrobston: Learned this morning that today is my -- and many others';
+select * from Tweet tw where tw.text like '%Learned this morning that today is my -- and many others';
+
+
+select * from Tweet t where t.text like 'RT @AndrewBrobston%';
+
+
+update Tweet t SET t.retweet_updated = 1;
 
 
 update Tweet t SET
-#  t.vader_sentiment_analysis_polarity = null,
-#  t.vader_sentiment_analysis_score = null,
+ t.vader_sentiment_analysis_polarity = null,
+ t.vader_sentiment_analysis_score = null,
  t.oplexicon_sentiment_analysis_polarity = null,
  t.oplexicon_sentiment_analysis_score = null,
  t.sentistrength_sentiment_analysis_polarity = null,
@@ -116,7 +147,19 @@ update Tweet t SET
  t.sentilexpt_sentiment_analysis_polarity = null,
  t.sentilexpt_sentiment_analysis_score = null,
  t.final_score = null,
- t.final_polarity = null;
+ t.final_polarity = null
+WHERE t.id in (104438,
+110584,
+113522,
+120400,
+124944,
+127591,
+128162,
+129215,
+142894,
+145035,
+153560
+);
 
        (select count(*) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'neu' and t.id_user = u.id) as neu_stl
 FROM User u INNER JOIN Tweet t ON u.id = t.id_user GROUP BY u.screen_name;
@@ -212,6 +255,11 @@ INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (17,	33,	33,	22,	39, (SELECT u.id from User u where u.screen_name = 'psanrosa13'));
 INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (32,	46,	19,	18,	28, (SELECT u.id from User u where u.screen_name = 'juanplopes'));
+INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
+VALUES (31,	36,	25,	33,	21, (SELECT u.id from User u where u.screen_name = 'RaffaelDantass'));
+INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
+VALUES (36,	45,	31,	31,	19, (SELECT u.id from User u where u.screen_name = 'Iagor51'));
+
 
 select distinct b.*, u.screen_name from BigFiveResult b inner join user u on u.id = b.id_user;
 
