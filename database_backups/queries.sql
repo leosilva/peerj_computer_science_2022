@@ -19,7 +19,7 @@ where t.is_retweet = 1
 group by u.screen_name;
 
 
-select * from Tweet t where t.text like 'RT %' and t.is_retweet = 0;
+select * from Tweet t where t.text not like 'RT %' and t.is_retweet = 1;
 
 
 # SELECAO ALEATORIA DE TWEETS POR DETERMINADO TRIMESTRE, USUARIO E POLARIDADE
