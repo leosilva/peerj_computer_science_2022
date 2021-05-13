@@ -101,7 +101,6 @@ def sentistrength_analysis(tweets, is_no_storage = False):
     print("analyzing tweets with sentistrength...")
 
     count = 1
-    print('total tweets: {}'.format(len(tweets)))
     tweets_to_update = []
     for t in tweets:
         is_already_analyzed = t[12] is not None
