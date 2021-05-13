@@ -10,28 +10,34 @@ import re
 auth = tweepy.AppAuthHandler(key["consumer_key"], key['consumer_secret'])
 api = tweepy.API(auth)
 
-def get_tweet_content(tweet):
+def _update_tweet_content(tweet, status):
     try:
-        status = api.get_status(tweet['id_str_twitter'], tweet_mode="extended", wait_on_rate_limit=True)
         text = re.search(r"RT @[\w]*:", tweet['text']).group(0) + " "
         tweet['text'] = text + status.retweeted_status.full_text
     except AttributeError:  # Not a Retweet
         tweet['text'] = status.full_text
-    except tweepy.error.TweepError as e:
-        print('Error not authorized')
-        print(e)
+
     return tweet
 
 
-def check_tweet_is_retweet(tweet):
+def _check_tweet_is_retweet(status):
+    if hasattr(status, 'retweeted_status') == True:
+        return 1
+    else:
+        return 0
+
+
+def update_tweet_data(tweet):
     try:
         status = api.get_status(tweet['id_str_twitter'], tweet_mode="extended", wait_on_rate_limit=True)
-        if hasattr(status, 'retweeted_status') == True:
-            return 1
+        tweet = _update_tweet_content(tweet, status)
+        is_retweet = _check_tweet_is_retweet(status)
     except tweepy.error.TweepError as e:
+        is_retweet = 0
         print('Error not authorized')
         print(e)
-    return 0
+
+    return (tweet, is_retweet)
 
 
 def fix_tweet_text(tweet):

@@ -2,11 +2,12 @@ use TwitterDataMining;
 
 select count(*) from User;
 select * from Tweet where lang = "pt" order by rand() limit 20;
-select * from Tweet t;
+select count(*) from Tweet t where t.text_updated = 0 or t.retweet_updated = 0;
 select * from BigFiveResult;
 
 
-select count(*) from Tweet t where t.is_retweet = 1;
+select count(*) from Tweet t where t.retweet_updated = 0;
+select count(*) from Tweet t where t.text_updated = 0;
 
 
 select
@@ -19,7 +20,7 @@ where t.is_retweet = 1
 group by u.screen_name;
 
 
-select * from Tweet t where t.text not like 'RT %' and t.is_retweet = 1;
+select count(*) from Tweet t where t.retweet_updated = 0;
 
 
 # SELECAO ALEATORIA DE TWEETS POR DETERMINADO TRIMESTRE, USUARIO E POLARIDADE
@@ -57,6 +58,7 @@ SELECT u.id,
        (select count(*) from Tweet t where t.final_polarity = 'neg' and t.id_user = u.id) as fim_neg,
        (select count(*) from Tweet t where t.final_polarity = 'neu' and t.id_user = u.id) as fim_neu
 FROM User u INNER JOIN Tweet t ON u.id = t.id_user GROUP BY u.screen_name;
+
 
 
 select
@@ -259,6 +261,8 @@ INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (31,	36,	25,	33,	21, (SELECT u.id from User u where u.screen_name = 'RaffaelDantass'));
 INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (36,	45,	31,	31,	19, (SELECT u.id from User u where u.screen_name = 'Iagor51'));
+INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
+VALUES (29,	41,	28,	22,	28, (SELECT u.id from User u where u.screen_name = 'RafaelMansilha'));
 
 
 select distinct b.*, u.screen_name from BigFiveResult b inner join user u on u.id = b.id_user;

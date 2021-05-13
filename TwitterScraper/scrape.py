@@ -308,7 +308,8 @@ if __name__ == "__main__":
         # 'felipefialho_'
         # 'juanplopes'
         # 'RaffaelDantass'
-        'Iagor51'
+        # 'Iagor51'
+        'RafaelMansilha'
     ]
 
     periods = [

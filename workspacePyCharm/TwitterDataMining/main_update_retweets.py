@@ -25,11 +25,13 @@ if __name__ == '__main__':
                 "retweet_count": t[5],
                 "lang": t[6],
                 "id_user": t[7],
-                "text_updated": t[18]
+                "text_updated": t[18],
+                "retweet_updated": t[20]
             }
-            print("Nº {}. Checking if tweet {} is a retweet".format(count, tweet['id']))
-            is_retweet = tdc.check_tweet_is_retweet(tweet)
-            if is_retweet == 1:
-                db.update_retweet_status(tweet, 1)
-            count+=1
+            if tweet['retweet_updated'] == 0:
+                print("Nº {}. Checking if tweet {} is a retweet".format(count, tweet['id']))
+                is_retweet = tdc.check_tweet_is_retweet(tweet)
+                if is_retweet == 1:
+                    db.update_retweet_status(tweet, 1)
+                count+=1
     print("Ending script...")

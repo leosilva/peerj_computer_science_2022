@@ -32,7 +32,7 @@ def update_retweet_status(tweet, is_retweet):
         connection.close()
 
     try:
-        query = "UPDATE Tweet t SET t.is_retweet = {} WHERE id = {}".format(is_retweet, tweet['id'])
+        query = "UPDATE Tweet t SET t.is_retweet = {}, t.retweet_updated = {} WHERE id = {}".format(is_retweet, 1, tweet['id'])
         cursor.execute(query)
         connection.commit()
     except mysql.connector.Error as err:
