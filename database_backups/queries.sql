@@ -20,7 +20,7 @@ where t.is_retweet = 1
 group by u.screen_name;
 
 
-select count(*) from Tweet t where t.retweet_updated = 0;
+select count(*) from Tweet t where t.is_retweet = 1;
 
 
 # SELECAO ALEATORIA DE TWEETS POR DETERMINADO TRIMESTRE, USUARIO E POLARIDADE
