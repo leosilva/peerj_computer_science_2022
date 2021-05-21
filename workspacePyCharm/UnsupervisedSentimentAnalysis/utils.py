@@ -48,6 +48,7 @@ def normalize(score, alpha=15):
 
 def print_summary_analysis(analysis_results_for_summary):
     for analysis in analysis_results_for_summary:
+        print(analysis)
         if analysis > 0:
             pos_scores.append(analysis)
         elif analysis == 0:

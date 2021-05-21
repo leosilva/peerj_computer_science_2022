@@ -6,6 +6,11 @@ select count(*) from Tweet t where t.text_updated = 0 or t.retweet_updated = 0;
 select * from BigFiveResult;
 
 
+select t.id_user, t.final_score, t.final_polarity
+from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user;
+
+
+
 select count(*) from Tweet t where t.retweet_updated = 0;
 select count(*) from Tweet t where t.text_updated = 0;
 
@@ -54,9 +59,10 @@ SELECT u.id,
        (select count(*) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'pos' and t.id_user = u.id) as pos_stl,
        (select count(*) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'neg' and t.id_user = u.id) as neg_stl,
        (select count(*) from Tweet t where t.sentilexpt_sentiment_analysis_polarity = 'neu' and t.id_user = u.id) as neu_stl,
-       (select count(*) from Tweet t where t.final_polarity = 'pos' and t.id_user = u.id) as fim_pos,
-       (select count(*) from Tweet t where t.final_polarity = 'neg' and t.id_user = u.id) as fim_neg,
-       (select count(*) from Tweet t where t.final_polarity = 'neu' and t.id_user = u.id) as fim_neu
+       (select count(*) from Tweet t where t.final_polarity = 'pos' and t.id_user = u.id) as fin_pos,
+       (select count(*) from Tweet t where t.final_polarity = 'neg' and t.id_user = u.id) as fin_neg,
+       (select count(*) from Tweet t where t.final_polarity = 'neu' and t.id_user = u.id) as fin_neu,
+       (select count(*) from Tweet t where t.is_retweet = 1 and t.id_user = u.id) as is_retweet
 FROM User u INNER JOIN Tweet t ON u.id = t.id_user GROUP BY u.screen_name;
 
 
@@ -265,7 +271,8 @@ INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (29,	41,	28,	22,	28, (SELECT u.id from User u where u.screen_name = 'RafaelMansilha'));
 
 
-select distinct b.*, u.screen_name from BigFiveResult b inner join user u on u.id = b.id_user;
+select distinct b.*, u.screen_name
+from BigFiveResult b inner join user u on u.id = b.id_user;
 
 
 
