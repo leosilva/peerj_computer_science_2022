@@ -3,7 +3,7 @@ import constant
 
 
 def __get_connection():
-    connection = mysql.connector.connect(host="localhost", user="root", passwd="root", db="TwitterDataMining")
+    connection = mysql.connector.connect(host="localhost", user="root", passwd="!@R00tP@ssW0rd", db="TwitterDataMining")
     cursor = connection.cursor(buffered=True)
     return [connection, cursor]
 
