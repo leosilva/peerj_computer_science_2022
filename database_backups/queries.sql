@@ -271,7 +271,122 @@ INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (29,	41,	28,	22,	28, (SELECT u.id from User u where u.screen_name = 'RafaelMansilha'));
 
 
-select distinct b.*, u.screen_name
+
+select u.screen_name,
+       count(t.id) as total,
+       (select * from Tweet tw where tw.id_user = u.id order by rand() limit 20) as limite
+from Tweet t
+    inner join User u on t.id_user = u.id
+    inner join BigFiveResult b on u.id = b.id_user
+group by u.screen_name;
+
+
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 26
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 27
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 28
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 30
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 31
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 34
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 35
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 37
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 38
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 39
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 40
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 41
+group by t.id
+order by rand() limit 35)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 42
+group by t.id
+order by rand() limit 35)
+
+
+select distinct b.*, u.screen_name, u.id
 from BigFiveResult b inner join user u on u.id = b.id_user;
 
 
