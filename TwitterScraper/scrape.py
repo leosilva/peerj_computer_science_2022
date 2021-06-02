@@ -300,7 +300,8 @@ if __name__ == "__main__":
         # 'nannoka',
         # 'rebelatto',
         # 'psanrosa13',
-        # 'dev_jessi',
+        # 'dev_jessi'
+        'bellesamways'
         # 'riquettinha',
         # 'rla4'
         # 'Gabrielathalita'
@@ -310,7 +311,7 @@ if __name__ == "__main__":
         # 'RaffaelDantass'
         # 'Iagor51'
         # 'RafaelMansilha'
-        'esdras_xavieer'
+        # 'esdras_xavieer'
     ]
 
     periods = [

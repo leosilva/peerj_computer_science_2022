@@ -55,7 +55,7 @@ if __name__ == '__main__':
         # 'nannoka',
         # 'rebelatto',
         # 'psanrosa13',
-        # 'dev_jessi',
+        'dev_jessi'
         # 'riquettinha',
         # 'Gabrielathalita'
         # 'riquettinha',
@@ -66,7 +66,7 @@ if __name__ == '__main__':
         # 'RaffaelDantass',
         # 'Iagor51'
         # 'RafaelMansilha'
-        'esdras_xavieer'
+        # 'esdras_xavieer'
     ]
 
 

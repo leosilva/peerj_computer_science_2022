@@ -46,7 +46,7 @@ def vader_analysis(tweets, is_no_storage = False):
             if is_no_storage == False or is_no_storage == None:
                 db.update_scores_tweet(df['id'][i], compound, polarity, constant.VADER_ALGORITHM)
 
-    va.print_summary_analysis(analysis_results_for_summary)
+    # va.print_summary_analysis(analysis_results_for_summary)
 
 
 def oplexicon_analysis(tweets, is_no_storage = False):
@@ -92,7 +92,7 @@ def oplexicon_analysis(tweets, is_no_storage = False):
             if is_no_storage == False or is_no_storage == None:
                 db.update_scores_tweet(t[0], oplexicon_analysis, polarity, constant.OPLEXICON_ALGORITHM)
 
-    ut.print_summary_analysis(analysis_results_for_summary)
+    # ut.print_summary_analysis(analysis_results_for_summary)
 
 
 def sentistrength_analysis(tweets, is_no_storage = False):
@@ -142,7 +142,7 @@ def sentistrength_analysis(tweets, is_no_storage = False):
 
     db.update_scores_tweet_batch(tweets_to_update, constant.SENTISTRENGTH_ALGORITHM)
 
-    ut.print_summary_analysis(analysis_results_for_summary)
+    # ut.print_summary_analysis(analysis_results_for_summary)
 
 
 def sentilexpt_analysis(tweets, is_no_storage = False):
@@ -188,7 +188,7 @@ def sentilexpt_analysis(tweets, is_no_storage = False):
             if is_no_storage == False or is_no_storage == None:
                 db.update_scores_tweet(t[0], sentilexpt_analysis, polarity, constant.SENTILEXPT_ALGORITHM)
 
-    ut.print_summary_analysis(analysis_results_for_summary)
+    # ut.print_summary_analysis(analysis_results_for_summary)
 
 
 if __name__ == '__main__':

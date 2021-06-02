@@ -1,6 +1,6 @@
 use TwitterDataMining;
 
-select count(*) from User;
+select * from User;
 select * from Tweet where lang = "pt" order by rand() limit 20;
 select count(*) from Tweet t where t.text_updated = 0 or t.retweet_updated = 0;
 select * from BigFiveResult;
@@ -269,6 +269,9 @@ INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (36,	45,	31,	31,	19, (SELECT u.id from User u where u.screen_name = 'Iagor51'));
 INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (29,	41,	28,	22,	28, (SELECT u.id from User u where u.screen_name = 'RafaelMansilha'));
+INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
+VALUES (39,	49,	39,	28,	15, (SELECT u.id from User u where u.screen_name = 'dev_jessi'));
+
 
 
 
