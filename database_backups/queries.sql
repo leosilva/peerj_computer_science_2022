@@ -6,7 +6,7 @@ select count(*) from Tweet t where t.text_updated = 0 or t.retweet_updated = 0;
 select * from BigFiveResult;
 
 
-select count(t.id)
+select *
 from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user;
 
 
