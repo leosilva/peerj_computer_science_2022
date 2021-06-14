@@ -19,6 +19,15 @@ def get_last_date(screen_name):
     return last_date[0]
 
 
+def get_user_id_str_twitter_by_screen_name(screen_name):
+    connection, cursor = __get_connection()
+
+    cursor.execute("SELECT id_str_twitter FROM User u WHERE u.screen_name = '{}'".format(screen_name))
+    id_user = cursor.fetchone()
+
+    return id_user[0]
+
+
 def update_retweet_status(tweet, is_retweet):
     connection, cursor = __get_connection()
     try:
@@ -160,6 +169,7 @@ def store_tweets(alltweets):
     some_tweet = alltweets[0]
 
     id_str_user = some_tweet['user']['id_str']
+
     try:
         cursor.execute("SELECT id FROM User u WHERE u.id_str_twitter = '{}'".format(id_str_user))
         user = cursor.fetchone()
@@ -241,6 +251,7 @@ def get_existings_tweets_by_ids_twitter(ids_twitter):
     ids = cursor.fetchmany()
 
     return ids
+
 
 def get_all_tweets():
     connection, cursor = __get_connection()

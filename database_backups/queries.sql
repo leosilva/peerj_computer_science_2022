@@ -6,7 +6,10 @@ select count(*) from Tweet t where t.text_updated = 0 or t.retweet_updated = 0;
 select * from BigFiveResult;
 
 
-select *
+select * from Tweet t where t.id_user = 43;
+
+
+select count(*)
 from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user;
 
 
@@ -271,7 +274,10 @@ INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (29,	41,	28,	22,	28, (SELECT u.id from User u where u.screen_name = 'RafaelMansilha'));
 INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
 VALUES (39,	49,	39,	28,	15, (SELECT u.id from User u where u.screen_name = 'dev_jessi'));
-
+INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
+VALUES (29,	45,	36,	27,	32, (SELECT u.id from User u where u.screen_name = 'bellesamways'));
+INSERT INTO BigFiveResult (o_score, c_score, e_score, a_score, n_score, id_user)
+VALUES (30,	35,	24,	20,	32, (SELECT u.id from User u where u.screen_name = 'Willian_justen'));
 
 
 
