@@ -10,7 +10,8 @@ select * from Tweet t where t.id_user = 43;
 
 
 select count(*)
-from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user;
+from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user
+WHERE t.is_retweet = 0;
 
 
 

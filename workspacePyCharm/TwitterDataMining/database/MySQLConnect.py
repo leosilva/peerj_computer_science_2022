@@ -253,6 +253,25 @@ def get_existings_tweets_by_ids_twitter(ids_twitter):
     return ids
 
 
+def get_tweets_by_retweet(is_only_retweets):
+    connection, cursor = __get_connection()
+
+    cursor.execute("SELECT * FROM User u")
+    allusers = cursor.fetchall()
+    tweets = {}
+    bigfive = {}
+
+    for user in allusers:
+        cursor.execute(
+            "SELECT * FROM Tweet t WHERE t.id_user = '{}' AND t.is_retweet = {}".format(user[0], is_only_retweets))
+        tweets[user[0]] = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM BigFiveResult b WHERE b.id_user = '{}'".format(user[0]))
+        bigfive[user[0]] = cursor.fetchall()
+
+    return (allusers, tweets, bigfive)
+
+
 def get_all_tweets():
     connection, cursor = __get_connection()
 
