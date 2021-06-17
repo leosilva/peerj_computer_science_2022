@@ -2,6 +2,7 @@ import database.MySQLConnect as db
 import json
 from datetime import date, datetime
 import os
+import argparse
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
@@ -11,10 +12,15 @@ def json_serial(obj):
     raise TypeError ("Type %s not serializable" % type(obj))
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(prog="main.py", usage="python3 %(prog)s [options]")
+    parser.add_argument("--all_tweets", required=True)
+    args = parser.parse_args()
     file = "/Users/leosilva/development/thesis/workspacePyCharm/TwitterDataMining/alldata.json"
     print("Starting script...")
-    (allusers, tweets, bigfive) = db.get_tweets_by_retweet(0)
-    # (allusers, tweets, bigfive) = db.get_all_tweets()
+    if args.all_tweets == 'True':
+        (allusers, tweets, bigfive) = db.get_all_tweets()
+    elif args.all_tweets == 'False':
+        (allusers, tweets, bigfive) = db.get_tweets_by_retweet(0)
     result_dict = {}
     for user in allusers:
         result_dict[user[0]] = {
