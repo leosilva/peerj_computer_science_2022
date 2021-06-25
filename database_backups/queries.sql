@@ -10,14 +10,14 @@ select * from Tweet t where t.id_user = 43;
 
 
 select count(*)
-from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user
-WHERE t.is_retweet = 0;
+from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user;
 
 
 
 select count(*) from Tweet t where t.retweet_updated = 0;
 select count(*) from Tweet t where t.text_updated = 0;
 
+select * from Tweet t where t.id in (104002, 104770, 107051, 194153, 108233, 116167, 113313)
 
 select
        u.id as id_user,
@@ -67,7 +67,9 @@ SELECT u.id,
        (select count(*) from Tweet t where t.final_polarity = 'neg' and t.id_user = u.id) as fin_neg,
        (select count(*) from Tweet t where t.final_polarity = 'neu' and t.id_user = u.id) as fin_neu,
        (select count(*) from Tweet t where t.is_retweet = 1 and t.id_user = u.id) as is_retweet
-FROM User u INNER JOIN Tweet t ON u.id = t.id_user GROUP BY u.screen_name;
+FROM User u INNER JOIN Tweet t ON u.id = t.id_user
+INNER JOIN BigFiveResult b on u.id = b.id_user
+GROUP BY u.screen_name;
 
 
 
