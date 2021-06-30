@@ -33,8 +33,21 @@ def vader_analysis(tweets, is_no_storage = False):
             is_already_analyzed = False
         if is_already_analyzed == False:
             analysis_result = va.perform_vader_analysis(df['text'][i])
-            analysis_results_for_summary.append(analysis_result)
+            l_sentiment = ea.emoji_score(df['text'][i])
             compound = analysis_result["compound"]
+
+            if len(l_sentiment) > 0:
+                score_sum = compound + sum(l_sentiment)
+                size = len(l_sentiment) + 1
+                compound = score_sum / size
+
+            if float(compound) > 1.0:
+                compound = 1.0
+            elif float(compound) < -1.0:
+                compound = -1.0
+
+            analysis_results_for_summary.append(analysis_result)
+
             polarity = ''
             if compound == 0.0:
                 polarity = constant.NEUTRAL_POLARITY
@@ -64,7 +77,7 @@ def oplexicon_analysis(tweets, is_no_storage = False):
             tweet = np.array2string(tweet)
             tweet = ut.remove_stop_words(tweet)
             tweet = op.remove_repeated_letters(tweet)
-            # tweet = op.stemming(tweet)
+            # tweet = ut.stemming(tweet)
 
             oplexicon_analysis = op.sentiment_score(tweet)
             l_sentiment = ea.emoji_score(tweet)
@@ -110,7 +123,7 @@ def sentistrength_analysis(tweets, is_no_storage = False):
             tweet = np.array2string(tweet)
             tweet = ut.remove_stop_words(tweet)
             tweet = ut.remove_repeated_letters(tweet)
-            # tweet = op.stemming(tweet)
+            # tweet = ut.stemming(tweet)
 
             sentistrenth_analysis = sa.perform_sentistrength_analysis(tweet)
             l_sentiment = ea.emoji_score(tweet)
@@ -160,7 +173,7 @@ def sentilexpt_analysis(tweets, is_no_storage = False):
             tweet = np.array2string(tweet)
             tweet = ut.remove_stop_words(tweet)
             tweet = sl.remove_repeated_letters(tweet)
-            # tweet = op.stemming(tweet)
+            # tweet = ut.stemming(tweet)
 
             sentilexpt_analysis = sl.sentiment_score(tweet)
             l_sentiment = ea.emoji_score(tweet)
