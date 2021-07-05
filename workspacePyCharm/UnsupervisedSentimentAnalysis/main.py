@@ -9,6 +9,7 @@ import oplexicon_analysis as op
 import sentistrength_analysis as sa
 import sentilexpt_analysis as sl
 import emoticon_analysis as ea
+import liwc_analysis as la
 
 
 analysis_results_for_summary = []
@@ -204,6 +205,21 @@ def sentilexpt_analysis(tweets, is_no_storage = False):
     # ut.print_summary_analysis(analysis_results_for_summary)
 
 
+def liwc_analysis():
+    print('---------------------- WARNING! ---------------------')
+    print('You may need to run LIWC2015 software analysis first!')
+    print('-----------------------------------------------------')
+    print()
+    print("analyzing tweets with liwc...")
+    data = la.run_liwc_analysis()
+    for i in data.index:
+        id = data.iloc[i]['id']
+        score = data.iloc[i]['final_score']
+        polarity = data.iloc[i]['final_polarity']
+        db.update_scores_tweet(id, score, polarity, constant.LIWC_ALGORITHM)
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog="main.py", usage="python3 %(prog)s [options]")
     parser.add_argument("--nostorage")
@@ -211,6 +227,7 @@ if __name__ == '__main__':
                                                                        constant.OPLEXICON_ALGORITHM,
                                                                        constant.SENTISTRENGTH_ALGORITHM,
                                                                        constant.SENTILEXPT_ALGORITHM,
+                                                                       constant.LIWC_ALGORITHM,
                                                                        constant.ALL_ALGORITHMS])
     args = parser.parse_args()
     is_no_storage = args.nostorage
@@ -240,6 +257,9 @@ if __name__ == '__main__':
         db.update_overall_scores_and_polarities()
     elif args.algorithm == constant.SENTILEXPT_ALGORITHM:
         sentilexpt_analysis(tweets, is_no_storage)
+        db.update_overall_scores_and_polarities()
+    elif args.algorithm == constant.LIWC_ALGORITHM:
+        liwc_analysis()
         db.update_overall_scores_and_polarities()
 
     print("finished")

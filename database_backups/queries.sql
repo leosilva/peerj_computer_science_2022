@@ -5,15 +5,13 @@ select * from Tweet where lang = "pt" order by rand() limit 20;
 select count(*) from Tweet t where t.text_updated = 0 or t.retweet_updated = 0;
 select * from BigFiveResult;
 
-select * from Tweet t where t.id = 194664;
+select * from Tweet t where t.id = 179583;
 
-select * from Tweet t where t.id_user = 43;
+select * from Tweet t;
 
 
-select count(*)
-from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user
-where t.is_retweet = 1;
-
+select t.id, t.text
+from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user;
 
 
 select count(*) from Tweet t where t.retweet_updated = 0;
@@ -1351,6 +1349,7 @@ from Tweet t
 where t.id_user = 42
 group by t.id
 order by rand() limit 35)
+
 
 
 select distinct b.*, u.screen_name, u.id

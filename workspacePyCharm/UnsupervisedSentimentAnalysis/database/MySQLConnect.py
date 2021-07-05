@@ -47,6 +47,9 @@ def update_scores_tweet(id, score, polarity, algorithm):
     elif algorithm == constant.SENTILEXPT_ALGORITHM:
         sql = "UPDATE Tweet t SET t.sentilexpt_sentiment_analysis_score = {}, t.sentilexpt_sentiment_analysis_polarity = '{}' WHERE t.id = {}".format(
             score, polarity, id)
+    elif algorithm == constant.LIWC_ALGORITHM:
+        sql = "UPDATE Tweet t SET t.liwc_sentiment_analysis_score = {}, t.liwc_sentiment_analysis_polarity = '{}' WHERE t.id = {}".format(
+            score, polarity, id)
 
     cursor.execute(sql)
     connection.commit()
@@ -58,7 +61,8 @@ def update_overall_scores_and_polarities():
     algorithm_scores = ['vader_sentiment_analysis_score',
                         'oplexicon_sentiment_analysis_score',
                         'sentistrength_sentiment_analysis_score',
-                        'sentilexpt_sentiment_analysis_score']
+                        'sentilexpt_sentiment_analysis_score',
+                        'liwc_sentiment_analysis_score']
 
     cursor.execute('SELECT id, {} FROM Tweet'.format(",".join(algorithm_scores)))
     tweets = cursor.fetchall()
@@ -75,11 +79,11 @@ def update_overall_scores_and_polarities():
 
         polarity = ''
         if final_score > 0:
-            polarity = 'pos'
+            polarity = constant.POSITIVE_POLARITY
         elif final_score < 0:
-            polarity = 'neg'
+            polarity = constant.NEGATIVE_POLARITY
         else:
-            polarity = 'neu'
+            polarity = constant.NEUTRAL_POLARITY
 
         parameters.append((final_score, polarity, id))
 
