@@ -74,6 +74,3 @@ def run_liwc_analysis():
     data = calculate_final_score(data)
     data = calculate_polarities(data)
     return data
-
-# [OK] 1 - FAZER A CONTAGEM DAS POLARIDADES CONSIDERANDO OS EMOTICONS
-# 2 - SALVAR AS POLARIDADES NO BANCO DE DADOS
