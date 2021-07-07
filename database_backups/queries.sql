@@ -9,7 +9,6 @@ select * from Tweet t where t.id = 179583;
 
 select * from Tweet t;
 
-
 select t.id, t.text
 from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user;
 
