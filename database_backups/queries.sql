@@ -1,6 +1,26 @@
 use TwitterDataMining;
 
 select * from User;
+
+update User u set u.participant_id = null;
+update User u set u.participant_id = 1 where u.id = 26;
+update User u set u.participant_id = 2 where u.id = 27;
+update User u set u.participant_id = 3 where u.id = 28;
+update User u set u.participant_id = 4 where u.id = 30;
+update User u set u.participant_id = 5 where u.id = 31;
+update User u set u.participant_id = 6 where u.id = 32;
+update User u set u.participant_id = 7 where u.id = 34;
+update User u set u.participant_id = 8 where u.id = 35;
+update User u set u.participant_id = 9 where u.id = 37;
+update User u set u.participant_id = 10 where u.id = 38;
+update User u set u.participant_id = 11 where u.id = 39;
+update User u set u.participant_id = 12 where u.id = 40;
+update User u set u.participant_id = 13 where u.id = 41;
+update User u set u.participant_id = 14 where u.id = 42;
+update User u set u.participant_id = 15 where u.id = 43;
+update User u set u.participant_id = 16 where u.id = 44;
+
+
 select * from Tweet where lang = "pt" order by rand() limit 20;
 select count(*) from Tweet t where t.text_updated = 0 or t.retweet_updated = 0;
 select * from BigFiveResult;
@@ -9,13 +29,24 @@ select * from Tweet t where t.id = 179583;
 
 select * from Tweet t;
 
-select t.id, t.text
-from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user;
+select count(t.id) as qtd_tweets
+from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user
+where t.is_retweet = 1;
+
+select count(t.id) as qtd_tweets, u.participant_id
+from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user
+group by u.participant_id;
+
+select u.participant_id,
+       (select count(*) from Tweet t where t.is_retweet = 0 and t.id_user = u.id) as qtd_original,
+       (select count(*) from Tweet t where t.is_retweet = 1 and t.id_user = u.id) as qtd_retweets,
+       count(t.id) as qtd_tweets
+from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user
+group by u.participant_id, u.id order by participant_id;
 
 
 select count(*) from Tweet t where t.retweet_updated = 0;
 select count(*) from Tweet t where t.text_updated = 0;
-select count(*) from Tweet t;
 
 select * from Tweet t where t.id in (
 102600,
@@ -1458,7 +1489,7 @@ order by rand() limit 35)
 
 
 
-select distinct b.*, u.screen_name, u.id
+select distinct u.screen_name, u.location
 from BigFiveResult b inner join user u on u.id = b.id_user;
 
 
