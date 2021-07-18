@@ -20,14 +20,103 @@ update User u set u.participant_id = 14 where u.id = 42;
 update User u set u.participant_id = 15 where u.id = 43;
 update User u set u.participant_id = 16 where u.id = 44;
 
+-- UPDATES FOR VADER 5 CATEGORIES
+update Tweet t
+set t.vader_sentiment_analysis_polarity_5_cat = 's_pos'
+WHERE vader_sentiment_analysis_score > 0.5;
+update Tweet t
+set t.vader_sentiment_analysis_polarity_5_cat = 'w_pos'
+WHERE t.vader_sentiment_analysis_score BETWEEN 0.0001 AND 0.5;
+update Tweet t
+set t.vader_sentiment_analysis_polarity_5_cat = 'neu'
+WHERE t.vader_sentiment_analysis_score = 0.0;
+update Tweet t
+set t.vader_sentiment_analysis_polarity_5_cat = 'w_neg'
+WHERE t.vader_sentiment_analysis_score BETWEEN -0.5 AND -0.0001;
+update Tweet t
+set t.vader_sentiment_analysis_polarity_5_cat = 's_neg'
+WHERE t.vader_sentiment_analysis_score < -0.5;
 
-select * from Tweet where lang = "pt" order by rand() limit 20;
+-- UPDATE FOR OPLEXICON 5 CATEGORIES
+update Tweet t
+set t.oplexicon_sentiment_analysis_polarity_5_cat = 's_pos'
+WHERE oplexicon_sentiment_analysis_score > 0.5;
+update Tweet t
+set t.oplexicon_sentiment_analysis_polarity_5_cat = 'w_pos'
+WHERE t.oplexicon_sentiment_analysis_score BETWEEN 0.0001 AND 0.5;
+update Tweet t
+set t.oplexicon_sentiment_analysis_polarity_5_cat = 'neu'
+WHERE t.oplexicon_sentiment_analysis_score = 0.0;
+update Tweet t
+set t.oplexicon_sentiment_analysis_polarity_5_cat = 'w_neg'
+WHERE t.oplexicon_sentiment_analysis_score BETWEEN -0.5 AND -0.0001;
+update Tweet t
+set t.oplexicon_sentiment_analysis_polarity_5_cat = 's_neg'
+WHERE t.oplexicon_sentiment_analysis_score < -0.5;
+
+
+-- UPDATE FOR SENTISTRENGTH 5 CATEGORIES
+update Tweet t
+set t.sentistrength_sentiment_analysis_polarity_5_cat = 's_pos'
+WHERE t.sentistrength_sentiment_analysis_score > 0.5;
+update Tweet t
+set t.sentistrength_sentiment_analysis_polarity_5_cat = 'w_pos'
+WHERE t.sentistrength_sentiment_analysis_score BETWEEN 0.0001 AND 0.5;
+update Tweet t
+set t.sentistrength_sentiment_analysis_polarity_5_cat = 'neu'
+WHERE t.sentistrength_sentiment_analysis_score = 0.0;
+update Tweet t
+set t.sentistrength_sentiment_analysis_polarity_5_cat = 'w_neg'
+WHERE t.sentistrength_sentiment_analysis_score BETWEEN -0.5 AND -0.0001;
+update Tweet t
+set t.sentistrength_sentiment_analysis_polarity_5_cat = 's_neg'
+WHERE t.sentistrength_sentiment_analysis_score < -0.5;
+
+
+-- UPDATE FOR SENTILEXPT 5 CATEGORIES
+update Tweet t
+set t.sentilexpt_sentiment_analysis_polarity_5_cat = 's_pos'
+WHERE t.sentilexpt_sentiment_analysis_score > 0.5;
+update Tweet t
+set t.sentilexpt_sentiment_analysis_polarity_5_cat = 'w_pos'
+WHERE t.sentilexpt_sentiment_analysis_score BETWEEN 0.0001 AND 0.5;
+update Tweet t
+set t.sentilexpt_sentiment_analysis_polarity_5_cat = 'neu'
+WHERE t.sentilexpt_sentiment_analysis_score = 0.0;
+update Tweet t
+set t.sentilexpt_sentiment_analysis_polarity_5_cat = 'w_neg'
+WHERE t.sentilexpt_sentiment_analysis_score BETWEEN -0.5 AND -0.0001;
+update Tweet t
+set t.sentilexpt_sentiment_analysis_polarity_5_cat = 's_neg'
+WHERE t.sentilexpt_sentiment_analysis_score < -0.5;
+
+
+-- UPDATE FOR LIWC 5 CATEGORIES
+update Tweet t
+set t.liwc_sentiment_analysis_polarity_5_cat = 's_pos'
+WHERE t.liwc_sentiment_analysis_score > 0.5;
+update Tweet t
+set t.liwc_sentiment_analysis_polarity_5_cat = 'w_pos'
+WHERE t.liwc_sentiment_analysis_score BETWEEN 0.0001 AND 0.5;
+update Tweet t
+set t.liwc_sentiment_analysis_polarity_5_cat = 'neu'
+WHERE t.liwc_sentiment_analysis_score = 0.0;
+update Tweet t
+set t.liwc_sentiment_analysis_polarity_5_cat = 'w_neg'
+WHERE t.liwc_sentiment_analysis_score BETWEEN -0.5 AND -0.0001;
+update Tweet t
+set t.liwc_sentiment_analysis_polarity_5_cat = 's_neg'
+WHERE t.liwc_sentiment_analysis_score < -0.5;
+
+
 select count(*) from Tweet t where t.text_updated = 0 or t.retweet_updated = 0;
 select * from BigFiveResult;
 
 select * from Tweet t where t.id = 179583;
 
-select * from Tweet t;
+select *
+from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user
+where t.liwc_sentiment_analysis_polarity is null;
 
 select count(t.id) as qtd_tweets
 from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user
@@ -1491,9 +1580,3 @@ order by rand() limit 35)
 
 select distinct u.screen_name, u.location
 from BigFiveResult b inner join user u on u.id = b.id_user;
-
-
-select * from User;
-
-
-
