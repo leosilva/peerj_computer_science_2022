@@ -89,3 +89,36 @@ def update_overall_scores_and_polarities():
 
     cursor.executemany(batch_update, parameters)
     connection.commit()
+
+
+def update_ensemble_scores_and_polarities():
+    print("updating ensemble scores and polarities...")
+    connection, cursor = __get_connection()
+    algorithm_scores = ['sentistrength_sentiment_analysis_score',
+                        'sentilexpt_sentiment_analysis_score']
+
+    cursor.execute('SELECT id, {} FROM Tweet'.format(",".join(algorithm_scores)))
+    tweets = cursor.fetchall()
+
+    batch_update = "UPDATE Tweet t SET t.final_score_ensemble = %s, t.final_polarity_ensemble = %s WHERE t.id = %s"
+    parameters = []
+
+    for t in tweets:
+        id = t[0]
+        scores = t[1:]
+        # removing None values
+        scores = [s for s in scores if s is not None]
+        final_score = sum(list(map(lambda x: float(x), scores))) / len(scores)
+
+        polarity = ''
+        if final_score > 0:
+            polarity = constant.POSITIVE_POLARITY
+        elif final_score < 0:
+            polarity = constant.NEGATIVE_POLARITY
+        else:
+            polarity = constant.NEUTRAL_POLARITY
+
+        parameters.append((final_score, polarity, id))
+
+    cursor.executemany(batch_update, parameters)
+    connection.commit()

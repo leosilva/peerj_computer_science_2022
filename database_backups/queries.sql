@@ -1,6 +1,8 @@
 use TwitterDataMining;
 
 select * from User;
+select *
+from Tweet t;
 
 update User u set u.participant_id = null;
 update User u set u.participant_id = 1 where u.id = 26;
@@ -112,7 +114,7 @@ WHERE t.liwc_sentiment_analysis_score < -0.5;
 select count(*) from Tweet t where t.text_updated = 0 or t.retweet_updated = 0;
 select * from BigFiveResult;
 
-select * from Tweet t where t.id = 179583;
+select * from Tweet t;
 
 select *
 from Tweet t inner join User U on t.id_user = U.id inner join BigFiveResult BFR on U.id = BFR.id_user
