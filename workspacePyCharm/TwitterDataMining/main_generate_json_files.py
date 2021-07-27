@@ -25,11 +25,12 @@ if __name__ == '__main__':
     for user in allusers:
         result_dict[user[0]] = {
             "id_str_twitter": user[1],
-            "name" : user[2],
-            "screen_name" : user[3],
-            "location" : user[4],
-            "url" : user[5],
-            "created_at": str(user[6]),
+            "participant_id": user[2],
+            "name" : user[3],
+            "screen_name" : user[4],
+            "location" : user[5],
+            "url" : user[6],
+            "created_at": str(user[7]),
             "tweets" : tweets[user[0]],
             "bigfive" : bigfive[user[0]]
         }

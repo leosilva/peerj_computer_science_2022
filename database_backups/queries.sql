@@ -1578,7 +1578,7 @@ where t.id_user = 42
 group by t.id
 order by rand() limit 35)
 
+select * from User
 
-
-select distinct u.screen_name, u.location
+select distinct b.*, u.participant_id
 from BigFiveResult b inner join user u on u.id = b.id_user;
