@@ -1,0 +1,258 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.573
+Model:                            OLS   Adj. R-squared:                  0.417
+Method:                 Least Squares   F-statistic:                     3.688
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):             0.0386
+Time:                        18:16:27   Log-Likelihood:                -47.868
+No. Observations:                  16   AIC:                             105.7
+Df Residuals:                      11   BIC:                             109.6
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        -11.4986     17.033     -0.675      0.514     -48.988      25.991
+O_Coded       -0.1646      2.011     -0.082      0.936      -4.592       4.263
+C_Coded        7.2630      3.441      2.110      0.059      -0.312      14.838
+E_Coded       -1.9368      2.591     -0.748      0.470      -7.639       3.766
+A_Coded        6.5946      2.591      2.545      0.027       0.892      12.297
+==============================================================================
+Omnibus:                        0.976   Durbin-Watson:                   1.447
+Prob(Omnibus):                  0.614   Jarque-Bera (JB):                0.730
+Skew:                           0.118   Prob(JB):                        0.694
+Kurtosis:                       1.981   Cond. No.                         91.1
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.551
+Model:                            OLS   Adj. R-squared:                  0.439
+Method:                 Least Squares   F-statistic:                     4.911
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):             0.0188
+Time:                        18:16:27   Log-Likelihood:                -48.265
+No. Observations:                  16   AIC:                             104.5
+Df Residuals:                      12   BIC:                             107.6
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        -17.0221     15.062     -1.130      0.281     -49.840      15.796
+O_Coded       -0.2892      1.967     -0.147      0.886      -4.576       3.997
+C_Coded        7.4610      3.368      2.216      0.047       0.124      14.798
+A_Coded        5.9368      2.392      2.482      0.029       0.726      11.148
+==============================================================================
+Omnibus:                        0.495   Durbin-Watson:                   1.335
+Prob(Omnibus):                  0.781   Jarque-Bera (JB):                0.551
+Skew:                           0.093   Prob(JB):                        0.759
+Kurtosis:                       2.110   Cond. No.                         72.5
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.561
+Model:                            OLS   Adj. R-squared:                  0.402
+Method:                 Least Squares   F-statistic:                     3.517
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):             0.0440
+Time:                        18:16:27   Log-Likelihood:                -48.083
+No. Observations:                  16   AIC:                             106.2
+Df Residuals:                      11   BIC:                             110.0
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        -19.7818     16.496     -1.199      0.256     -56.090      16.526
+O_Coded        0.3021      2.348      0.129      0.900      -4.866       5.470
+C_Coded        6.9923      3.601      1.942      0.078      -0.933      14.917
+A_Coded        5.9163      2.470      2.395      0.036       0.480      11.353
+N_Coded        0.9998      1.990      0.502      0.625      -3.381       5.380
+==============================================================================
+Omnibus:                        0.359   Durbin-Watson:                   1.488
+Prob(Omnibus):                  0.836   Jarque-Bera (JB):                0.497
+Skew:                           0.186   Prob(JB):                        0.780
+Kurtosis:                       2.221   Cond. No.                         83.1
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.321
+Model:                            OLS   Adj. R-squared:                  0.272
+Method:                 Least Squares   F-statistic:                     6.606
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):             0.0222
+Time:                        18:16:27   Log-Likelihood:                -51.580
+No. Observations:                  16   AIC:                             107.2
+Df Residuals:                      14   BIC:                             108.7
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -7.5177     16.511     -0.455      0.656     -42.929      27.894
+C_Coded        9.0093      3.505      2.570      0.022       1.491      16.527
+==============================================================================
+Omnibus:                        1.058   Durbin-Watson:                   1.249
+Prob(Omnibus):                  0.589   Jarque-Bera (JB):                0.447
+Skew:                           0.408   Prob(JB):                        0.800
+Kurtosis:                       2.936   Cond. No.                         50.0
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.573
+Model:                            OLS   Adj. R-squared:                  0.466
+Method:                 Least Squares   F-statistic:                     5.358
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):             0.0142
+Time:                        18:16:28   Log-Likelihood:                -47.873
+No. Observations:                  16   AIC:                             103.7
+Df Residuals:                      12   BIC:                             106.8
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        -11.5494     16.302     -0.708      0.492     -47.068      23.969
+C_Coded        7.1634      3.083      2.324      0.038       0.447      13.880
+E_Coded       -1.9543      2.473     -0.790      0.445      -7.342       3.433
+A_Coded        6.5896      2.481      2.657      0.021       1.185      11.994
+==============================================================================
+Omnibus:                        1.022   Durbin-Watson:                   1.426
+Prob(Omnibus):                  0.600   Jarque-Bera (JB):                0.743
+Skew:                           0.113   Prob(JB):                        0.690
+Kurtosis:                       1.969   Cond. No.                         80.1
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.575
+Model:                            OLS   Adj. R-squared:                  0.421
+Method:                 Least Squares   F-statistic:                     3.724
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):             0.0375
+Time:                        18:16:28   Log-Likelihood:                -47.823
+No. Observations:                  16   AIC:                             105.6
+Df Residuals:                      11   BIC:                             109.5
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        -13.4291     18.420     -0.729      0.481     -53.971      27.113
+C_Coded        7.1251      3.213      2.218      0.049       0.054      14.197
+E_Coded       -1.6984      2.753     -0.617      0.550      -7.757       4.360
+A_Coded        6.5107      2.600      2.504      0.029       0.788      12.234
+N_Coded        0.4759      1.811      0.263      0.798      -3.511       4.463
+==============================================================================
+Omnibus:                        0.776   Durbin-Watson:                   1.522
+Prob(Omnibus):                  0.678   Jarque-Bera (JB):                0.678
+Skew:                           0.160   Prob(JB):                        0.712
+Kurtosis:                       2.044   Cond. No.                         94.3
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.550
+Model:                            OLS   Adj. R-squared:                  0.481
+Method:                 Least Squares   F-statistic:                     7.954
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):            0.00555
+Time:                        18:16:28   Log-Likelihood:                -48.279
+No. Observations:                  16   AIC:                             102.6
+Df Residuals:                      13   BIC:                             104.9
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        -17.2008     14.437     -1.191      0.255     -48.390      13.989
+C_Coded        7.2878      3.034      2.402      0.032       0.734      13.842
+A_Coded        5.9174      2.296      2.577      0.023       0.957      10.878
+==============================================================================
+Omnibus:                        0.483   Durbin-Watson:                   1.298
+Prob(Omnibus):                  0.785   Jarque-Bera (JB):                0.548
+Skew:                           0.103   Prob(JB):                        0.760
+Kurtosis:                       2.118   Cond. No.                         60.9
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.561
+Model:                            OLS   Adj. R-squared:                  0.451
+Method:                 Least Squares   F-statistic:                     5.102
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):             0.0167
+Time:                        18:16:28   Log-Likelihood:                -48.095
+No. Observations:                  16   AIC:                             104.2
+Df Residuals:                      12   BIC:                             107.3
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        -19.2877     15.372     -1.255      0.233     -52.779      14.204
+C_Coded        7.1879      3.127      2.298      0.040       0.374      14.002
+A_Coded        5.9341      2.363      2.511      0.027       0.786      11.083
+N_Coded        0.8714      1.650      0.528      0.607      -2.724       4.466
+==============================================================================
+Omnibus:                        0.360   Durbin-Watson:                   1.499
+Prob(Omnibus):                  0.835   Jarque-Bera (JB):                0.496
+Skew:                           0.161   Prob(JB):                        0.781
+Kurtosis:                       2.200   Cond. No.                         70.5
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.380
+Model:                            OLS   Adj. R-squared:                  0.285
+Method:                 Least Squares   F-statistic:                     3.987
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):             0.0446
+Time:                        18:16:28   Log-Likelihood:                -50.846
+No. Observations:                  16   AIC:                             107.7
+Df Residuals:                      13   BIC:                             110.0
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         19.2178     11.003      1.747      0.104      -4.554      42.989
+E_Coded       -2.2479      2.857     -0.787      0.445      -8.420       3.924
+A_Coded        7.8814      2.797      2.818      0.015       1.839      13.924
+==============================================================================
+Omnibus:                        1.203   Durbin-Watson:                   1.336
+Prob(Omnibus):                  0.548   Jarque-Bera (JB):                0.839
+Skew:                           0.210   Prob(JB):                        0.657
+Kurtosis:                       1.959   Cond. No.                         33.9
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                por_neu   R-squared:                       0.351
+Model:                            OLS   Adj. R-squared:                  0.304
+Method:                 Least Squares   F-statistic:                     7.561
+Date:                Fri, 30 Jul 2021   Prob (F-statistic):             0.0157
+Time:                        18:16:28   Log-Likelihood:                -51.218
+No. Observations:                  16   AIC:                             106.4
+Df Residuals:                      14   BIC:                             108.0
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         13.3170      7.941      1.677      0.116      -3.716      30.350
+A_Coded        7.1321      2.594      2.750      0.016       1.569      12.695
+==============================================================================
+Omnibus:                        2.283   Durbin-Watson:                   1.200
+Prob(Omnibus):                  0.319   Jarque-Bera (JB):                1.189
+Skew:                           0.307   Prob(JB):                        0.552
+Kurtosis:                       1.814   Cond. No.                         16.9
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
