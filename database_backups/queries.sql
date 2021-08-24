@@ -1,8 +1,7 @@
 use TwitterDataMining;
 
 select * from User;
-select *
-from Tweet t;
+select * from Tweet t where id = 102566;
 
 update User u set u.participant_id = null;
 update User u set u.participant_id = 1 where u.id = 26;
