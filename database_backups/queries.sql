@@ -1,7 +1,15 @@
 use TwitterDataMining;
 
 select * from User;
-select * from Tweet t where id = 102566;
+select count(*) from Tweet t;
+
+SELECT * FROM Tweet t
+  WHERE t.created_at > '3/1/2009' AND t.created_at <= DATEADD(day,1,'3/31/2009')
+        #make it inclusive for a datetime type
+    AND DATEPART(hh,t.created_at) >= 6 AND DATEPART(hh,[dateColumn]) <= 22
+        -- gets the hour of the day from the datetime
+    AND DATEPART(dw,[dateColumn]) >= 3 AND DATEPART(dw,[dateColumn]) <= 5
+        -- gets the day of the week from the datetime
 
 update User u set u.participant_id = null;
 update User u set u.participant_id = 1 where u.id = 26;
