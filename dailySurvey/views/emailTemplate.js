@@ -1,5 +1,5 @@
 module.exports = {
-    getTemplate: function(randomHash, userId) {
+    getTemplate: function(path, randomHash, userId) {
         return `
             <div id="body" style="width: 80%; margin: auto; border: 2px solid black; border-radius: 5px;">
                 <div id="header" style="text-align: center;">
@@ -7,9 +7,11 @@ module.exports = {
                 </div>
                 <p style="font-size: 14pt; padding: 10px;">This is an automatic email from a University of Coimbra research. 
                 As a participant of this research, we would like you to answer the survey below. Please, answer only once per email received.</p>
+                <p style="font-size: 14pt; padding: 10px;">If you are not able to answer to the survey through this email, 
+                please try using this <a href=""></a>link.</p>
                 <div id="form" style="width: 70%; margin: auto; padding: 15px;">
                     <h1 style='text-align: center; margin-bottom: 40px;'>Online Daily Survey</h1>
-                    <form action='http://localhost:8080/survey/answer' method='post'>
+                    <form action="/survey/answer" method='post'>
                         <div id="div-q1" style="margin-bottom: 30px;">
                             <label for='q1' style="font-weight: bold; font-size: large; display: block; margin-bottom: 20px;">1 - How do you feel in this moment?</label>
                             <div style="display: flex; justify-content: center; align-items: center;">

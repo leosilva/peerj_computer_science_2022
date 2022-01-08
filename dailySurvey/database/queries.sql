@@ -3,6 +3,10 @@ use dailyonlinesurvey;
 select * from User;
 select * from Survey;
 
+delete from Survey;
+
+update Survey set securityHash = 'c1c28dbb2fb36500cbf1' where securityHash = 'c1c28dbb2fb36500cbf0';
+
 insert into User (id_str_twitter, participant_id, name, screen_name, email)
 VALUES (123456789,99,'Leo Silva','oleomsilva', 'leopontosilva@gmail.com');
 
