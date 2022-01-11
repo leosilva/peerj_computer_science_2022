@@ -1,7 +1,7 @@
 "use scrict"
 var path = require("path")
 
-let emailTemplate = require("../views/emailTemplate")
+const surveyTemplate = require("../views/survey/survey")
 
 module.exports = {
     send: async function(randomHash, user) {
@@ -24,7 +24,7 @@ module.exports = {
             from: "leo.moreira@me.com",
             to: user.email,
             subject: "Daily Survey - University of Coimbra Research",
-            html: emailTemplate.getTemplate(randomHash, user.id),
+            html: surveyTemplate.getTemplate(randomHash, user.id, false),
             attachments: [
                 {
                     filename: 'very-unhappy.png',
