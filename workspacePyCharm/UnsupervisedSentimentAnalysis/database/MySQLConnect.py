@@ -95,7 +95,8 @@ def update_ensemble_scores_and_polarities():
     print("updating ensemble scores and polarities...")
     connection, cursor = __get_connection()
     algorithm_scores = ['sentistrength_sentiment_analysis_score',
-                        'sentilexpt_sentiment_analysis_score']
+                        'sentilexpt_sentiment_analysis_score',
+                        'liwc_sentiment_analysis_score']
 
     cursor.execute('SELECT id, {} FROM Tweet'.format(",".join(algorithm_scores)))
     tweets = cursor.fetchall()
@@ -110,10 +111,15 @@ def update_ensemble_scores_and_polarities():
         scores = [s for s in scores if s is not None]
         final_score = sum(list(map(lambda x: float(x), scores))) / len(scores)
 
+        final_score = round(final_score, 6)
+
+        if id == 106473:
+            print(final_score)
+
         polarity = ''
-        if final_score > 0:
+        if final_score > 0.05:
             polarity = constant.POSITIVE_POLARITY
-        elif final_score < 0:
+        elif final_score < -0.05:
             polarity = constant.NEGATIVE_POLARITY
         else:
             polarity = constant.NEUTRAL_POLARITY

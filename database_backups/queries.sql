@@ -1,7 +1,7 @@
 use TwitterDataMining;
 
 select * from User;
-select * from Tweet t;
+select count(*) from Tweet t where t.is_retweet = 0;
 
 SELECT * FROM Tweet t
   WHERE t.created_at > '3/1/2009' AND t.created_at <= DATEADD(day,1,'3/31/2009')
