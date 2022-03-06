@@ -113,9 +113,6 @@ def update_ensemble_scores_and_polarities():
 
         final_score = round(final_score, 6)
 
-        if id == 106473:
-            print(final_score)
-
         polarity = ''
         if final_score > 0.05:
             polarity = constant.POSITIVE_POLARITY
