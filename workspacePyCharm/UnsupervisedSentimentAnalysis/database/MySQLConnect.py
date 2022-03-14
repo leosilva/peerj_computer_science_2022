@@ -67,7 +67,7 @@ def update_overall_scores_and_polarities():
     cursor.execute('SELECT id, {} FROM Tweet'.format(",".join(algorithm_scores)))
     tweets = cursor.fetchall()
 
-    batch_update = "UPDATE Tweet t SET t.final_score = %s, t.final_polarity = %s WHERE t.id = %s"
+    batch_update = "UPDATE Tweet t SET t.final_polarity = %s WHERE t.id = %s"
     parameters = []
 
     for t in tweets:
@@ -78,14 +78,14 @@ def update_overall_scores_and_polarities():
         final_score = sum(list(map(lambda x:float(x), scores))) / len(scores)
 
         polarity = ''
-        if final_score > 0:
+        if final_score > 0.05:
             polarity = constant.POSITIVE_POLARITY
-        elif final_score < 0:
+        elif final_score < -0.05:
             polarity = constant.NEGATIVE_POLARITY
         else:
             polarity = constant.NEUTRAL_POLARITY
 
-        parameters.append((final_score, polarity, id))
+        parameters.append((polarity, id))
 
     cursor.executemany(batch_update, parameters)
     connection.commit()
@@ -122,6 +122,43 @@ def update_ensemble_scores_and_polarities():
             polarity = constant.NEUTRAL_POLARITY
 
         parameters.append((final_score, polarity, id))
+
+    cursor.executemany(batch_update, parameters)
+    connection.commit()
+
+
+def update_lexicons_scores_and_polarities():
+    print("updating lexicons scores and polarities...")
+    connection, cursor = __get_connection()
+    algorithm_scores = ['vader_sentiment_analysis_score',
+                        'oplexicon_sentiment_analysis_score',
+                        'sentistrength_sentiment_analysis_score',
+                        'sentilexpt_sentiment_analysis_score',
+                        'liwc_sentiment_analysis_score']
+
+    for a in algorithm_scores:
+        cursor.execute('SELECT id, {} FROM Tweet'.format(a))
+        tweets = cursor.fetchall()
+
+        lexicon_polarity_field = a.replace('score', 'polarity')
+
+        batch_update = "UPDATE Tweet t SET t.{} = %s WHERE t.id = %s".format(lexicon_polarity_field)
+        parameters = []
+
+        for t in tweets:
+            id = t[0]
+            score = t[1]
+            # removing None values
+            if score != None:
+                polarity = ''
+                if score > 0.05:
+                    polarity = constant.POSITIVE_POLARITY
+                elif score < -0.05:
+                    polarity = constant.NEGATIVE_POLARITY
+                else:
+                    polarity = constant.NEUTRAL_POLARITY
+
+                parameters.append((polarity, id))
 
     cursor.executemany(batch_update, parameters)
     connection.commit()
