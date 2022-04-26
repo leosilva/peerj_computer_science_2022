@@ -1,7 +1,10 @@
 use TwitterDataMining;
 
 select * from User;
-select count(*) from Tweet t where t.is_retweet = 0;
+
+select u.participant_id, count(*) from Tweet t inner join User u on (u.id = t.id_user)
+where t.is_retweet = 0 and u.participant_id is not null
+group by u.participant_id;
 
 SELECT * FROM Tweet t
   WHERE t.created_at > '3/1/2009' AND t.created_at <= DATEADD(day,1,'3/31/2009')
@@ -1486,104 +1489,144 @@ group by u.screen_name;
        t.text
 from Tweet t
 where t.id_user = 26
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 27
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 28
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 30
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 31
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 32
+and t.is_retweet = 0
+group by t.id
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 34
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 35
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 37
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 38
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 39
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 40
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 41
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
 union
 (select
        t.id,
        t.text
 from Tweet t
 where t.id_user = 42
+and t.is_retweet = 0
 group by t.id
-order by rand() limit 35)
+order by rand() limit 2)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 43
+and t.is_retweet = 0
+group by t.id
+order by rand() limit 2)
+union
+(select
+       t.id,
+       t.text
+from Tweet t
+where t.id_user = 44
+and t.is_retweet = 0
+group by t.id
+order by rand() limit 2);
 
 select * from User
 
