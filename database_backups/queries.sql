@@ -1,6 +1,7 @@
 use TwitterDataMining;
 
 select * from User;
+select * from BigFiveResult;
 
 select u.participant_id, count(*) from Tweet t inner join User u on (u.id = t.id_user)
 where t.is_retweet = 0 and u.participant_id is not null
