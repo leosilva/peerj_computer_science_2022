@@ -41,7 +41,7 @@ if __name__ == '__main__':
     for user in allusers:
         filtered_tweets = []
         for t in tweets[user[0]]:
-            temp_list = [t[0], t[3], t[7]]
+            temp_list = [t[0], t[2], t[3], t[7]]
             temp_list.append(t[8:30])
             filtered_tweets.append(list(flatten(temp_list)))
         result_dict[user[0]] = {

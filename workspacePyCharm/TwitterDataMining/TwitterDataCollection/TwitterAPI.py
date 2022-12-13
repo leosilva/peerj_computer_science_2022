@@ -20,6 +20,14 @@ def _update_tweet_content(tweet, status):
     return tweet
 
 
+def check_tweet_is_retweet_by_tweet(tweet):
+    status = api.get_status(tweet['id_str'], tweet_mode="extended", wait_on_rate_limit=True)
+    if hasattr(status, 'retweeted_status') == True:
+        return 1
+    else:
+        return 0
+
+
 def _check_tweet_is_retweet(status):
     if hasattr(status, 'retweeted_status') == True:
         return 1
@@ -29,7 +37,7 @@ def _check_tweet_is_retweet(status):
 
 def update_tweet_data(tweet):
     try:
-        status = api.get_status(tweet['id_str_twitter'], tweet_mode="extended", wait_on_rate_limit=True)
+        status = api.get_status(tweet['id_str'], tweet_mode="extended", wait_on_rate_limit=True)
         tweet = _update_tweet_content(tweet, status)
         is_retweet = _check_tweet_is_retweet(status)
     except tweepy.error.TweepError as e:

@@ -3,9 +3,11 @@
 import TwitterDataCollection.TwitterAPI as tdc
 import TwitterDataCollection.TwitterScraper as scraper
 import database.MySQLConnect as db
-from datetime import datetime
+from datetime import date, datetime
 import argparse
 import json
+import os
+
 
 
 def verify_necessity_more_tweets(screen_name, year, month, day):
@@ -59,14 +61,29 @@ def remove_tweets_containing_media(tweets):
     return tweets
 
 
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
+
+
 def fetch_tweets_by_screen_name(screen_name, since_date, until, isFromApi):
     if isFromApi == "True":
         print("fetching tweets from api...")
         alltweets = tdc.get_all_tweets(screen_name)
         alltweets = remove_tweets_containing_media(alltweets)
-        # for a in alltweets:
-        #     a._json = tdc.get_tweet_content(a._json)
-        db.store_tweets([tweet._json for tweet in alltweets])
+        alltweets_without_retweets_and_portuguese = []
+        for a in alltweets:
+            # print(a._json)
+            # break
+            # is_retweet = tdc.check_tweet_is_retweet_by_tweet(a._json)
+            if a._json['retweeted'] == False and a._json['lang'] == 'pt':
+                alltweets_without_retweets_and_portuguese.append(a)
+            # (tweet, is_retweet) = tdc.update_tweet_data(a._json)
+            # a._json = tweet
+        # db.store_tweets([tweet._json for tweet in alltweets])
         # is_need_more_tweets = verify_necessity_more_tweets(screen_name, int(since_date.year), int(since_date.month), int(since_date.day))
         # is_need_more_tweets = True
         # if is_need_more_tweets:
@@ -75,6 +92,31 @@ def fetch_tweets_by_screen_name(screen_name, since_date, until, isFromApi):
         #     tweets_to_insert = prepare_scrapped_tweets_to_insert(tweets)
         #     tweets_to_insert = remove_tweets_containing_media(tweets_to_insert)
         #     db.store_tweets(tweets_to_insert)
+        result_dict = []
+        for a in alltweets_without_retweets_and_portuguese:
+            since = datetime(int(since_date.year), int(since_date.month), int(since_date.day))
+            until_date = datetime(int(until.year), int(until.month), int(until.day))
+            date_created = a._json['created_at']
+            date_created = datetime.strptime(date_created, '%a %b %d %H:%M:%S +0000 %Y')
+            if since <= date_created <= until_date:
+                (tweet, is_retweet) = tdc.update_tweet_data(a._json)
+                result_dict.append({
+                    "id_str_twitter": a._json['id_str'],
+                    # "participant_id": user[2],
+                    "name" : a._json['user']['name'],
+                    "screen_name" : a._json['user']['screen_name'],
+                    # "location" : user[5],
+                    # "url" : user[6],
+                    "created_at": str(a._json['created_at']),
+                    "text": tweet['text']
+                })
+        print(len(result_dict))
+        file = '/Users/leosilva/Documents/Estudo/Doutorado/Coimbra/2019-2020/Disciplinas/Thesis/presentations/presentation_sentiment_analysis_logique_sistemas/notebook/example_dataset.json'
+        if os.path.exists(file):
+            print("Removing existing file...")
+            os.remove(file)
+        with open(file, 'w') as outfile:
+            json.dump(result_dict, outfile, default=json_serial)
     else:
         print("scrapping tweets...")
         tweets = scrap_tweets(screen_name, since_date, until, isFromApi)
